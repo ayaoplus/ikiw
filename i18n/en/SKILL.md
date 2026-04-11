@@ -4,9 +4,22 @@ A personal knowledge base management skill powered by LLM. No frameworks, databa
 
 Inspired by Karpathy's LLM Wiki pattern.
 
-## Trigger Phrases
+## Commands
 
-This skill should be triggered in the following scenarios:
+```
+ikiw init <path>                    Initialize a knowledge base, generate SCHEMA.md via conversation
+ikiw summary                        Batch generate summaries (detect unprocessed articles)
+ikiw summary <filename>             Generate summary for a specific article
+ikiw query "question"               Query the knowledge base
+ikiw wiki "topic"                   Generate a wiki page
+ikiw wiki "topic" --style <style>   Generate wiki with a writing style applied
+ikiw wiki "topic" --design <design> Generate wiki as styled HTML with a visual design
+ikiw write "topic" --style <style>  Write in a style based on knowledge base content
+ikiw ingest                         Process new articles (generate summaries, check wiki updates)
+ikiw setup-summary                  Summary assistant, define summary prompt via conversation
+```
+
+Also supports natural language triggers:
 - "search the knowledge base", "look it up", "any related articles?"
 - "generate a summary", "process new articles"
 - "create a wiki page", "summarize this topic"

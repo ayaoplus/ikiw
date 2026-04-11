@@ -4,9 +4,22 @@ Un skill de gestión de base de conocimiento personal basado en LLM. No depende 
 
 Inspirado en el patrón LLM Wiki de Karpathy.
 
-## Palabras clave de activación
+## Comandos
 
-Este skill debe activarse en los siguientes escenarios:
+```
+ikiw init <path>                    Inicializar base de conocimiento, generar SCHEMA.md mediante diálogo
+ikiw summary                        Generar resúmenes en lote (detectar artículos sin procesar)
+ikiw summary <filename>             Generar resumen para un artículo específico
+ikiw query "pregunta"               Consultar la base de conocimiento
+ikiw wiki "tema"                    Generar una página wiki
+ikiw wiki "tema" --style <style>    Generar wiki con un estilo de escritura aplicado
+ikiw wiki "tema" --design <design>  Generar wiki como HTML con un diseño visual
+ikiw write "tema" --style <style>   Escribir con estilo basado en el contenido de la base de conocimiento
+ikiw ingest                         Procesar artículos nuevos (generar resúmenes, verificar actualizaciones wiki)
+ikiw setup-summary                  Asistente de resúmenes, definir prompt de resumen mediante diálogo
+```
+
+También soporta activación por lenguaje natural:
 - "Busca en la base de conocimiento", "busca algo", "¿hay artículos relacionados?"
 - "Ayúdame a generar resúmenes", "procesa los artículos nuevos"
 - "Crea una página wiki", "resume este tema"
