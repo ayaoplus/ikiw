@@ -4,9 +4,22 @@
 
 灵感来自 Karpathy 的 LLM Wiki 模式。
 
-## 触发词
+## 命令
 
-以下场景应触发本 skill：
+```
+ikiw init <path>                    初始化知识库，通过对话生成 SCHEMA.md
+ikiw summary                        批量生成摘要（检测未处理文章）
+ikiw summary <filename>             为指定文章生成摘要
+ikiw query "问题"                    查询知识库
+ikiw wiki "主题"                     生成 wiki 页面
+ikiw wiki "主题" --style <style>     生成 wiki 并按写作风格输出
+ikiw wiki "主题" --design <design>   生成 wiki 并按视觉样式输出 HTML
+ikiw write "主题" --style <style>    基于知识库内容进行风格写作
+ikiw ingest                         处理新文章（生成摘要、检查 wiki 更新）
+ikiw setup-summary                  摘要助手，通过对话定义摘要 prompt
+```
+
+也支持自然语言触发：
 - "查知识库"、"搜一下"、"有没有相关文章"
 - "帮我生成摘要"、"处理新文章"
 - "建个 wiki 页面"、"总结一下这个主题"
