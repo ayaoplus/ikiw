@@ -1,3 +1,5 @@
+**语言:** 中文 | [English](i18n/en/README.md) | [한국어](i18n/ko/README.md) | [日本語](i18n/ja/README.md)
+
 # ikiw
 
 一个基于 LLM 的个人知识库 skill。不依赖任何框架、数据库或向量检索，纯 prompt 驱动，任何能读写文件的 LLM agent 都能使用。
