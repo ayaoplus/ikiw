@@ -1,5 +1,9 @@
 **语言:** 中文 | [English](i18n/en/README.md) | [한국어](i18n/ko/README.md) | [日本語](i18n/ja/README.md) | [Español](i18n/es/README.md)
 
+<p align="center">
+  <img src="assets/logo.png" alt="ikiw" width="200">
+</p>
+
 # ikiw — I Keep It Wise
 
 > *Wiki, reversed.*
