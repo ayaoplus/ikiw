@@ -1,8 +1,12 @@
 **言語:** [English](../en/README.md) | [中文](../../README.md) | [한국어](../ko/README.md) | 日本語 | [Español](../es/README.md)
 
-# ikiw
+# ikiw — I Keep It Wise
+
+> *Wiki, reversed.*
 
 LLM ベースの個人ナレッジベース skill。フレームワーク、データベース、ベクトル検索に一切依存せず、純粋に prompt 駆動で動作し、ファイルの読み書きができる LLM agent であればどれでも利用可能。
+
+従来の wiki は、あなたが知識を整理して他人に見せるもの。ikiw はその逆 — LLM があなたの代わりに知識を整理・維持・統合し、あなたは質問するだけ。
 
 [Karpathy の LLM Wiki パターン](https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f)にインスピレーションを受けて開発。
 

@@ -1,8 +1,12 @@
 **Language:** English | [中文](../../README.md) | [한국어](../ko/README.md) | [日本語](../ja/README.md) | [Español](../es/README.md)
 
-# ikiw
+# ikiw — I Keep It Wise
+
+> *Wiki, reversed.*
 
 A personal knowledge base skill powered by LLM. No frameworks, databases, or vector search required — purely prompt-driven, usable by any LLM agent that can read and write files.
+
+Traditional wiki is where you write knowledge for others to read. ikiw flips it — the LLM organizes, maintains, and synthesizes knowledge for you. You just ask.
 
 Inspired by [Karpathy's LLM Wiki pattern](https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f).
 
