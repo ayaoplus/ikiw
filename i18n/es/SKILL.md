@@ -15,6 +15,8 @@ ikiw wiki "tema"                    Generar una página wiki
 ikiw wiki "tema" --style <style>    Generar wiki con un estilo de escritura aplicado
 ikiw wiki "tema" --design <design>  Generar wiki como HTML con un diseño visual
 ikiw write "tema" --style <style>   Escribir con estilo basado en el contenido de la base de conocimiento
+ikiw export "tema" --format png     Exportar página wiki como captura de pantalla completa
+ikiw export "tema" --format pdf     Exportar página wiki como PDF
 ikiw ingest                         Procesar artículos nuevos (generar resúmenes, verificar actualizaciones wiki)
 ikiw setup-summary                  Asistente de resúmenes, definir prompt de resumen mediante diálogo
 ```
@@ -128,7 +130,27 @@ Genera artículos basados en contenido de la base de conocimiento, según una pl
 
 Cuando el usuario dice "Toma la wiki de ventas en Xiaohongshu y escribe un artículo con estilo de cuenta oficial, genera la página web con estilo Notion", el agent lee secuencialmente el contenido wiki, la plantilla de estilo de escritura y el estilo visual, renderizando capa por capa.
 
-### 6. Ingreso de nuevos artículos
+### 6. Exportación
+
+Exporta páginas wiki o styled HTML como imágenes o PDF.
+
+**Flujo:**
+1. Confirmar el contenido a exportar (página wiki, styled HTML)
+2. Si solo hay markdown, primero generar styled HTML con el diseño especificado
+3. Usar Playwright para captura de pantalla de página completa:
+   - PNG imagen de página completa: `npx playwright screenshot --full-page input.html output.png`
+   - PDF: mediante la funcionalidad de exportación PDF de Playwright
+4. Guardar los archivos de salida en el directorio `wiki/` de la base de conocimiento
+
+**Formatos soportados:**
+- `png` — Captura de página completa, ideal para compartir en redes sociales
+- `pdf` — Adecuado para impresión y archivo
+
+**Ejemplos de uso combinado:**
+- `ikiw export "tema" --format png` — Exportar una página wiki existente como imagen de página completa
+- `ikiw wiki "tema" --design notion` luego `ikiw export "tema" --format png` — Primero generar una página con estilo, luego exportar
+
+### 7. Ingreso de nuevos artículos
 
 Flujo de procesamiento cuando se agregan nuevos artículos a raw/:
 1. Detecta artículos en raw/ que no aparecen en summaries.md

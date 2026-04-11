@@ -15,6 +15,8 @@ ikiw wiki "주제"                     wiki 페이지 생성
 ikiw wiki "주제" --style <style>     wiki 생성 후 글쓰기 스타일 적용
 ikiw wiki "주제" --design <design>   wiki 생성 후 비주얼 스타일로 HTML 출력
 ikiw write "주제" --style <style>    지식 베이스 내용 기반 스타일 글쓰기
+ikiw export "주제" --format png      wiki 페이지를 전체 스크린샷으로 내보내기
+ikiw export "주제" --format pdf      wiki 페이지를 PDF로 내보내기
 ikiw ingest                         새 글 처리 (요약 생성, wiki 업데이트 확인)
 ikiw setup-summary                  요약 어시스턴트, 대화를 통해 요약 prompt 정의
 ```
@@ -128,7 +130,27 @@ raw/에 있는 글을 읽고, SCHEMA.md에 정의된 요약 prompt에 따라 요
 
 사용자가 "샤오홍슈 쇼핑 wiki를 공중하오 스타일로 글을 쓰고, Notion 스타일로 웹페이지를 생성해줘"라고 하면, agent는 wiki 내용, 글쓰기 스타일 템플릿, 비주얼 스타일을 차례로 읽어 레이어별로 렌더링하여 출력합니다.
 
-### 6. 새 글 입고
+### 6. 내보내기
+
+wiki 페이지 또는 styled HTML을 이미지나 PDF로 내보냅니다.
+
+**흐름:**
+1. 내보낼 콘텐츠 확인 (wiki 페이지, styled HTML)
+2. markdown만 있는 경우, 먼저 지정된 design으로 styled HTML을 생성
+3. Playwright를 사용하여 전체 페이지 스크린샷으로 내보내기:
+   - PNG 전체 길이 이미지: `npx playwright screenshot --full-page input.html output.png`
+   - PDF: Playwright의 PDF 내보내기 기능을 통해 생성
+4. 출력 파일을 지식 베이스의 `wiki/` 디렉토리에 저장
+
+**지원 형식:**
+- `png` — 전체 페이지 스크린샷, 소셜 미디어 공유에 적합
+- `pdf` — 인쇄 및 보관에 적합
+
+**조합 사용 예시:**
+- `ikiw export "주제" --format png` — 기존 wiki 페이지를 전체 길이 이미지로 내보내기
+- `ikiw wiki "주제" --design notion` 후 `ikiw export "주제" --format png` — 먼저 스타일 페이지를 생성한 후 내보내기
+
+### 7. 새 글 입고
 
 새 글이 raw/에 추가된 후의 처리 흐름:
 1. raw/에서 summaries.md에 없는 글 감지

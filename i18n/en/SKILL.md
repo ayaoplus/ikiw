@@ -15,6 +15,8 @@ ikiw wiki "topic"                   Generate a wiki page
 ikiw wiki "topic" --style <style>   Generate wiki with a writing style applied
 ikiw wiki "topic" --design <design> Generate wiki as styled HTML with a visual design
 ikiw write "topic" --style <style>  Write in a style based on knowledge base content
+ikiw export "topic" --format png    Export wiki page as a full-page screenshot
+ikiw export "topic" --format pdf    Export wiki page as PDF
 ikiw ingest                         Process new articles (generate summaries, check wiki updates)
 ikiw setup-summary                  Summary assistant, define summary prompt via conversation
 ```
@@ -128,7 +130,27 @@ Produce articles based on knowledge base content, following a specified writing 
 
 When the user says "take the Xiaohongshu product promotion wiki, write an article in WeChat Official Account style, and generate a webpage with Notion styling," the agent reads the wiki content, writing style template, and visual style in sequence, rendering layer by layer.
 
-### 6. Ingesting New Articles
+### 6. Export
+
+Export wiki pages or styled HTML as images or PDF.
+
+**Process:**
+1. Confirm the content to export (wiki page, styled HTML)
+2. If only markdown is available, first generate styled HTML with the specified design
+3. Use Playwright for full-page screenshots:
+   - PNG full-page image: `npx playwright screenshot --full-page input.html output.png`
+   - PDF: via Playwright's PDF export functionality
+4. Save output files to the knowledge base's `wiki/` directory
+
+**Supported formats:**
+- `png` — Full-page screenshot, ideal for sharing on social media
+- `pdf` — Suitable for printing and archiving
+
+**Usage examples:**
+- `ikiw export "topic" --format png` — Export an existing wiki page as a full-page image
+- `ikiw wiki "topic" --design notion` then `ikiw export "topic" --format png` — Generate a styled page first, then export
+
+### 7. Ingesting New Articles
 
 Processing flow after new articles are added to raw/:
 1. Detect articles in raw/ that are not yet in summaries.md

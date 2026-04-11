@@ -15,6 +15,8 @@ ikiw wiki "テーマ"                   wiki ページを生成
 ikiw wiki "テーマ" --style <style>   wiki を生成しライティングスタイルを適用
 ikiw wiki "テーマ" --design <design> wiki を生成しビジュアルスタイルで HTML 出力
 ikiw write "テーマ" --style <style>  ナレッジベースの内容に基づきスタイルライティング
+ikiw export "テーマ" --format png    wiki ページをフルページスクリーンショットとしてエクスポート
+ikiw export "テーマ" --format pdf    wiki ページを PDF としてエクスポート
 ikiw ingest                         新規記事を処理（要約生成、wiki 更新チェック）
 ikiw setup-summary                  要約アシスタント、対話で要約 prompt を定義
 ```
@@ -128,7 +130,27 @@ raw/ 内の記事を読み、SCHEMA.md で定義された要約 prompt に従っ
 
 ユーザーが「小紅書の販売促進 wiki を公式アカウント風で記事にして、Notion スタイルでウェブページを生成して」と言えば、agent は wiki コンテンツ、ライティングスタイルテンプレート、ビジュアルスタイルを順に読み取り、層ごとにレンダリングして出力する。
 
-### 6. 新規記事の登録
+### 6. エクスポート
+
+wiki ページまたは styled HTML を画像や PDF としてエクスポートする。
+
+**フロー：**
+1. エクスポートするコンテンツを確認する（wiki ページ、styled HTML）
+2. markdown のみの場合、まず指定された design で styled HTML を生成する
+3. Playwright を使用してフルページスクリーンショットでエクスポートする：
+   - PNG フルページ画像：`npx playwright screenshot --full-page input.html output.png`
+   - PDF：Playwright の PDF エクスポート機能を使用
+4. 出力ファイルをナレッジベースの `wiki/` ディレクトリに保存する
+
+**対応フォーマット：**
+- `png` — フルページスクリーンショット、SNS での共有に最適
+- `pdf` — 印刷やアーカイブに適している
+
+**組み合わせ使用例：**
+- `ikiw export "テーマ" --format png` — 既存の wiki ページをフルページ画像としてエクスポート
+- `ikiw wiki "テーマ" --design notion` の後に `ikiw export "テーマ" --format png` — まずスタイルページを生成してからエクスポート
+
+### 7. 新規記事の登録
 
 新しい記事が raw/ に追加された後の処理フロー：
 1. raw/ 内で summaries.md に未登録の記事を検出する
