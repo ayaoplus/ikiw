@@ -15,6 +15,8 @@ ikiw wiki "主题"                     生成 wiki 页面
 ikiw wiki "主题" --style <style>     生成 wiki 并按写作风格输出
 ikiw wiki "主题" --design <design>   生成 wiki 并按视觉样式输出 HTML
 ikiw write "主题" --style <style>    基于知识库内容进行风格写作
+ikiw export "主题" --format png      导出 wiki 页面为长图
+ikiw export "主题" --format pdf      导出 wiki 页面为 PDF
 ikiw ingest                         处理新文章（生成摘要、检查 wiki 更新）
 ikiw setup-summary                  摘要助手，通过对话定义摘要 prompt
 ```
@@ -128,7 +130,27 @@ my-wiki/
 
 用户说"把小红书带货的 wiki 用公众号风格写篇文章，用 Notion 样式生成网页"，agent 依次读取 wiki 内容、写作风格模板、视觉样式，逐层渲染输出。
 
-### 6. 新文章入库
+### 6. 导出
+
+将 wiki 页面或 styled HTML 导出为图片或 PDF。
+
+**流程：**
+1. 确认要导出的内容（wiki 页面、styled HTML）
+2. 如果只有 markdown，先按指定 design 生成 styled HTML
+3. 使用 Playwright 全页截图导出：
+   - PNG 长图：`npx playwright screenshot --full-page input.html output.png`
+   - PDF：通过 Playwright 的 PDF 导出功能
+4. 输出文件存入知识库的 `wiki/` 目录
+
+**支持的格式：**
+- `png` — 全页长图，适合社交媒体分享
+- `pdf` — 适合打印和存档
+
+**组合使用示例：**
+- `ikiw export "小红书带货" --format png` — 导出现有 wiki 页面为长图
+- `ikiw wiki "小红书带货" --design notion` 然后 `ikiw export "小红书带货" --format png` — 先生成样式页面再导出
+
+### 7. 新文章入库
 
 新文章加入 raw/ 后的处理流程：
 1. 检测 raw/ 中未出现在 summaries.md 里的文章
