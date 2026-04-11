@@ -1,4 +1,4 @@
-**言語:** [English](../en/README.md) | [中文](../../README.md) | [한국어](../ko/README.md) | 日本語
+**言語:** [English](../en/README.md) | [中文](../../README.md) | [한국어](../ko/README.md) | 日本語 | [Español](../es/README.md)
 
 # ikiw
 
