@@ -1,8 +1,12 @@
 **语言:** 中文 | [English](i18n/en/README.md) | [한국어](i18n/ko/README.md) | [日本語](i18n/ja/README.md) | [Español](i18n/es/README.md)
 
-# ikiw
+# ikiw — I Keep It Wise
+
+> *Wiki, reversed.*
 
 一个基于 LLM 的个人知识库 skill。不依赖任何框架、数据库或向量检索，纯 prompt 驱动，任何能读写文件的 LLM agent 都能使用。
+
+传统 wiki 是你写知识给别人看。ikiw 反过来——LLM 替你整理、维护、综合知识，你只管提问。
 
 灵感来自 [Karpathy 的 LLM Wiki 模式](https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f)。
 
