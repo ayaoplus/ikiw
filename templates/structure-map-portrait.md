@@ -128,12 +128,29 @@ H1: 卡兹克公众号长文写作
 
 ## 第五步：画布契约（强制）
 
+### 绝对禁令（跨模板共性，违反必导致底部留白）
+
+- ❌ **禁止** `body`、`html`、`main`、`#root` 任一元素使用：
+  - `min-height: 100vh` / `min-height: 100%`
+  - `height: 100vh` / `height: 100%` / `height: <任何固定值>`
+  - `display: flex` + `justify-content: space-between` 垂直撑开
+  - 任何 ancestor 元素的 `min-height` 超过自身内容高度
+- ❌ **禁止** body 设置任何固定 `height`——body 高度**必须**由内容决定
+- ❌ **禁止** hero `padding-top < 48px`；source 到 h1 视觉间距 `< 24px`
+- ❌ **禁止** 最后一个 section 之后插入任何"撑开高度"的占位 div
+
+> 这些规则优先于任何 design-md 的提示。结构图可能很长，只要违反一条就会在底部出现大块留白。
+
+### 标准约束
+
 | 项 | 约束 |
 |----|------|
 | 画布宽度 | `body { width: 750px; margin: 0 auto; }` |
+| 画布高度 | `body { height: auto; }`（或完全不设 height）——**由内容决定** |
 | 左右安全区 | `body { padding-left: 48px; padding-right: 48px; }` |
 | 顶部 padding | `body { padding-top: 56px; }` |
 | 底部 padding | `body { padding-bottom: 56px; }` |
+| Hero padding | hero 本身 `padding-top ≥ 48px`，source 到 h1 `≥ 24px`，h1 到 subtitle `≥ 16px` |
 | Section 垂直间距 | 相邻 section 之间 `margin-top: 64px`（可放大到 80px 给 huasheng 类风格） |
 | 子元素继承 | 所有组件不再单独设置左右 padding，继承 body safe area |
 | 缺失字段 | 任何组件的字段为空，整个组件直接省略 |

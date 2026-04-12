@@ -28,6 +28,14 @@ ikiw export "主题" --width 520 --dpr 3             自定义视口宽度和像
 | `--dpr` | `3` | 设备像素比，3 = 超高清（输出 1560px 宽） |
 | `--output` | 知识库 `wiki/` 目录 | 输出路径 |
 
+## 关键约定（避免底部留白）
+
+- **必须** `fullPage: true`——让截图高度由内容决定，不锁死视口高度
+- viewport.height 只作为渲染**最小**高度，不是输出最终高度
+- 如果输出图底部仍有大块空白，**不是 screenshot 的问题，是 HTML 侧有 `min-height: 100vh` / `height: 100vh` 之类**——回到模板层修复，不要在这里 workaround
+- 竖版长图（poster / visual-card / structure-map）：body 必须 `height: auto`，由 fullPage 自动展开
+- 横版固定画布（landscape 类）：body 有固定 `width + height`，截图用 `fullPage: false` 取精确视口
+
 ## 执行流程
 
 1. 确认要导出的 HTML 文件路径

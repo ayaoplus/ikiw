@@ -50,15 +50,32 @@ footer:
 
 竖版是固定宽度的长图，不是响应式网页。生成 HTML 时必须遵守以下空间约束：
 
+### 绝对禁令（跨模板共性，违反必导致底部留白）
+
+- ❌ **禁止** `body`、`html`、`main`、`#root` 任一元素使用：
+  - `min-height: 100vh` / `min-height: 100%`
+  - `height: 100vh` / `height: 100%` / `height: <任何固定值>`
+  - `display: flex` + `justify-content: space-between` 垂直撑开
+  - 任何 ancestor 元素的 `min-height` 超过自身内容高度
+- ❌ **禁止** body 设置任何固定 `height`——body 高度**必须**由内容决定（即 `height: auto` 或不写 height）
+- ❌ **禁止** hero `padding-top < 48px`；badge/source 到 h1 视觉间距 `< 24px`
+- ❌ **禁止** 最后一个 section 之后插入任何"撑开高度"的占位 div
+
+> 这些规则优先于任何 design-md 的提示。只要违反一条，输出图就会在底部出现大块留白。
+
+### 标准约束
+
 | 项 | 约束 |
 |----|------|
 | 画布宽度 | `body { width: 750px; margin: 0 auto; }` 固定 750px 居中 |
+| 画布高度 | `body { height: auto; }`（或完全不设 height）——**由内容决定** |
 | 左右安全区 | `body { padding-left: 48px; padding-right: 48px; }` 所有内容必须落在 safe area 内 |
 | 顶部 padding | `body { padding-top: 56px; }` |
 | 底部 padding | `body { padding-bottom: 56px; }` |
-| 子元素继承 | section、hero、tags、timeline 等区块**不再单独设置左右 padding**，全部继承 body 的 safe area |
+| Hero padding | hero 本身 `padding-top ≥ 48px`，badge/source 到 h1 `≥ 24px`，h1 到 subtitle `≥ 16px` |
+| 子元素继承 | section、hero、tags 等区块**不再单独设置左右 padding**，全部继承 body 的 safe area |
 | Section 垂直间距 | 相邻 section 之间至少 `margin-top: 48px`（视觉风格允许的话可放大到 64–80px） |
-| 卡片/列表内边距 | hero 内的数据卡、highlight-item、tag、timeline-item 等子元素**不允许贴边**，必须落在 safe area 内 |
+| 卡片/列表内边距 | hero 内的数据卡、key-point-item、tag 等子元素**不允许贴边**，必须落在 safe area 内 |
 | Footer 处理 | 原文没有 footer 信息时**整个 footer 区块直接省略**，禁止出现空白 footer 占位条 |
 | 卡片底部 | 最后一个内容区块结束后即结束（仅留 body 的 padding-bottom），禁止下方出现大块空白 |
 
