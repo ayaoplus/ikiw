@@ -175,30 +175,26 @@ ikiw/
 
 <table>
   <thead>
-    <tr><th>插件</th><th>命令</th><th>说明</th><th>详细文档</th></tr>
+    <tr><th>插件</th><th>说明</th><th>详细文档</th></tr>
   </thead>
   <tbody>
     <tr>
       <td nowrap>截图导出</td>
-      <td nowrap><code>ikiw export</code></td>
       <td>将 HTML 导出为 PNG 长图或 PDF</td>
       <td nowrap><a href="plugins/screenshot-export.md">screenshot-export.md</a></td>
     </tr>
     <tr>
       <td nowrap>海报生成</td>
-      <td nowrap><code>ikiw poster</code></td>
       <td>从内容自动生成多风格海报</td>
       <td nowrap><a href="plugins/poster-generator.md">poster-generator.md</a></td>
     </tr>
     <tr>
       <td nowrap>风格写作</td>
-      <td nowrap><code>ikiw write</code></td>
       <td>基于写作风格模板重写内容</td>
       <td nowrap><a href="plugins/style-writer.md">style-writer.md</a></td>
     </tr>
     <tr>
       <td nowrap>人物蒸馏</td>
-      <td nowrap><code>ikiw distill</code></td>
       <td>从公众人物言论中蒸馏认知框架，生成可激活的思维 Skill</td>
       <td nowrap><a href="plugins/distill.md">distill.md</a></td>
     </tr>
