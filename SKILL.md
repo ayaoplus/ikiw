@@ -15,8 +15,9 @@ ikiw wiki "主题"                     生成 wiki 页面
 ikiw wiki "主题" --style <style>     生成 wiki 并按写作风格输出
 ikiw wiki "主题" --design <design>   生成 wiki 并按视觉样式输出 HTML
 ikiw write "主题" --style <style>    基于知识库内容进行风格写作
-ikiw export "主题" --format png      导出 wiki 页面为长图
+ikiw export "主题" --format png      导出 wiki 页面为长图（默认 3x 高清）
 ikiw export "主题" --format pdf      导出 wiki 页面为 PDF
+ikiw export "主题" --format png --width 520 --dpr 3   自定义视口宽度和像素密度
 ikiw ingest                         处理新文章（生成摘要、检查 wiki 更新）
 ikiw setup-summary                  摘要助手，通过对话定义摘要 prompt
 ```
@@ -137,17 +138,43 @@ my-wiki/
 **流程：**
 1. 确认要导出的内容（wiki 页面、styled HTML）
 2. 如果只有 markdown，先按指定 design 生成 styled HTML
-3. 使用 Playwright 全页截图导出：
-   - PNG 长图：`npx playwright screenshot --full-page input.html output.png`
-   - PDF：通过 Playwright 的 PDF 导出功能
-4. 输出文件存入知识库的 `wiki/` 目录
+3. 使用 Playwright 截图导出（通过 Node API 设置 deviceScaleFactor）
+4. 输出文件存入知识库的 `wiki/` 目录或用户指定的路径
 
-**支持的格式：**
-- `png` — 全页长图，适合社交媒体分享
-- `pdf` — 适合打印和存档
+**默认参数：**
+- `--width 520` — 视口宽度，内容紧凑无多余背景
+- `--dpr 3` — 3 倍像素密度（实际输出 1560px 宽），高清适合社交媒体和打印
+- `--format png` — 默认输出 PNG
+
+**所有参数：**
+
+| 参数 | 默认值 | 说明 |
+|------|--------|------|
+| `--format` | `png` | 输出格式：`png` 或 `pdf` |
+| `--width` | `520` | 视口宽度（px），内容区宽度，不含多余背景 |
+| `--dpr` | `3` | 设备像素比，1 = 标清，2 = 视网膜，3 = 超高清 |
+| `--output` | 知识库 `wiki/` 目录 | 输出文件路径 |
+
+**截图实现：**
+
+使用 Playwright Node API，核心代码：
+
+```javascript
+const context = await browser.newContext({
+  viewport: { width: WIDTH, height: 800 },
+  deviceScaleFactor: DPR
+});
+const page = await context.newPage();
+await page.goto(url);
+await page.screenshot({ path: output, fullPage: true });
+```
+
+agent 根据参数自行生成并执行截图脚本。
 
 **组合使用示例：**
-- `ikiw export "小红书带货" --format png` — 导出现有 wiki 页面为长图
+- `ikiw export "小红书带货" --format png` — 默认 520px 宽、3x 高清导出
+- `ikiw export "小红书带货" --width 375 --dpr 3` — 手机宽度导出
+- `ikiw export "小红书带货" --width 1200 --dpr 2` — 宽屏导出
 - `ikiw wiki "小红书带货" --design notion` 然后 `ikiw export "小红书带货" --format png` — 先生成样式页面再导出
 
 ### 7. 新文章入库
