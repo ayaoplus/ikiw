@@ -9,8 +9,10 @@
 ## 命令
 
 ```
-ikiw poster "内容或文件路径" --design <style>           生成海报（默认竖版）
-ikiw poster "内容或文件路径" --design all              用所有可用样式各生成一版
+ikiw poster "内容或文件路径" --design <style>                       生成海报（默认竖版）
+ikiw poster "内容或文件路径" --layout portrait --design <style>      竖版海报（推荐，最常用）
+ikiw poster "内容或文件路径" --layout landscape --design <style>     横版海报（PPT 嵌入 / 网站 banner）
+ikiw poster "内容或文件路径" --design all                          用所有可用样式各生成一版
 ```
 
 ## 触发词
@@ -39,6 +41,7 @@ ikiw poster "内容或文件路径" --design all              用所有可用样
 
 - `designs/` — 视觉样式库（design-md 文件）
 - `templates/poster-portrait.md` — 竖版海报规范（画布契约 + HTML 骨架 + 自查清单）
+- `templates/poster-landscape.md` — 横版海报规范（PPT/banner 形态）
 - `screenshot-export` 插件 — 用于导出为 PNG / PDF
 
 ## 执行流程
