@@ -22,6 +22,8 @@
 
 <p align="center">
   <a href="#设计哲学">设计哲学</a> ·
+  <a href="#设计特点">设计特点</a> ·
+  <a href="#目录结构">目录结构</a> ·
   <a href="#快速开始">快速开始</a> ·
   <a href="#核心能力">核心能力</a> ·
   <a href="#插件系统">插件系统</a> ·
@@ -54,36 +56,106 @@ AI时代的个人知识库应该如何构建？
 
 不打标签、不做分类、不建数据库。摘要本身就是最立体的"标签"，想要wiki也能随时生成。
 
-基于这个构想，我设计了这个**极简知识库Skill**，适用于**1万篇资料内的个人知识库**：
+## 设计特点
+
+基于上述构想，ikiw 是一个**极简知识库 Skill**，适用于**1万篇资料内的个人知识库**：
 
 - **不写代码** — 整个系统是 prompt 工程，不是程序
 - **不碰原文** — `raw/` 目录只读
-- **不提前生成** — wiki 按需创建，不浪费
-- **不绑平台** — 任何能读写文件的 LLM agent 都能用
+- **不提前生成** — wiki 按需创建，不浪费 token
+- **不绑平台** — 任何能读写文件的 LLM agent 都能用（Claude Code、Codex、OpenCode 等）
 - **插件式扩展** — 核心精简，能力通过插件动态增长
-- 万篇以内：`summaries.md` 一次性读完，无需额外基础设施
+- **零基础设施** — 万篇以内 `summaries.md` 一次性读完，无需向量库
+
+## 目录结构
+
+知识库的目录组织非常简单，全部由一个 `SCHEMA.md` 配置串起来：
+
+```
+my-wiki/
+├── SCHEMA.md          # 知识库配置：摘要 prompt、wiki prompt、查询规则
+├── raw/               # 原始文章（只读，由你投喂）
+│   ├── article-1.md
+│   └── article-2.md
+├── summaries.md       # 摘要索引（系统的核心，由 agent 维护）
+└── wiki/              # 按需生成的主题 wiki 页面
+    └── topic-a.md
+```
+
+Skill 仓库自身的结构：
+
+```
+ikiw/
+├── SKILL.md           # skill 入口定义
+├── SCHEMA.template.md # 知识库配置模板
+├── plugins/           # 插件（每个 .md 文件即一个插件）
+├── designs/           # 视觉样式（design-md，供截图、海报插件使用）
+├── styles/            # 写作风格模板（供 style-writer 插件使用）
+└── templates/         # 结构化模板（如海报骨架）
+```
 
 ## 快速开始
 
-1. 把本仓库作为 skill 加载到你的 LLM agent（Claude Code、Codex、OpenCode 等）
-2. 告诉 agent："帮我建一个知识库"
-3. agent 会通过对话了解你的文章类型和关注点，自动生成 SCHEMA.md
-4. 把文章放入 `raw/` 目录
-5. 告诉 agent："帮我生成摘要"
-6. 开始查询
+### 1. 安装 Skill
+
+直接告诉你的 agent：
+
+> 帮我把 https://github.com/ayaoplus/ikiw 这个 skill 安装上
+
+agent 会自动 clone 仓库到 skill 目录并加载（Claude Code 一般是 `~/.claude/skills/`，Codex/OpenCode 同理）。
+
+也可以手动 clone：
+
+```bash
+git clone https://github.com/ayaoplus/ikiw.git ~/.claude/skills/ikiw
+```
+
+### 2. 初始化知识库
+
+告诉 agent：
+
+> 帮我在 ~/Documents/my-wiki 建一个 ikiw 知识库，主要存创业、增长、AI 相关的文章
+
+agent 会通过对话了解你的文章类型和关注点，自动生成 `SCHEMA.md`（包含定制化的摘要 prompt、wiki prompt、查询规则）。
+
+### 3. 投喂文章并生成摘要
+
+把文章（markdown 文件）丢进 `raw/` 目录，然后告诉 agent：
+
+> 帮我把新文章生成摘要
+
+agent 会自动检测未处理的文章，按 `SCHEMA.md` 中的 prompt 生成摘要，追加到 `summaries.md`。
+
+### 4. 查询知识库
+
+直接用自然语言问：
+
+> 查一下知识库里有哪些讲 cold email 增长的案例，列出关键数据
+
+agent 会读 `summaries.md` → 定位相关文章 → 读原文 → 综合回答，并标注引用来源。
+
+### 5. 生成 Wiki 页面
+
+当某个主题被反复查询，可以沉淀成 wiki 页面：
+
+> 帮我把知识库里关于"创业方法论"的内容整理成一个 wiki 页面
+
+agent 会综合多篇相关文章，生成框架式的结构化页面（每个知识点带原文链接），存入 `wiki/` 目录。Wiki 是缓存，可以随时重建。
 
 ## 核心能力
 
-知识库本身提供以下核心命令：
+知识库本身提供以下核心命令，每个命令都支持自然语言触发：
 
-| 命令 | 说明 |
-|------|------|
-| `ikiw init <path>` | 初始化知识库，通过对话生成 SCHEMA.md |
-| `ikiw summary` | 批量/单篇生成摘要 |
-| `ikiw query "问题"` | 读摘要索引 → 定位文章 → 读原文 → 综合回答 |
-| `ikiw wiki "主题"` | 将主题知识综合为结构化页面 |
-| `ikiw ingest` | 处理新文章，生成摘要，检查 wiki 更新 |
-| `ikiw setup-summary` | 摘要助手，通过对话定义摘要 prompt |
+| 命令 | 自然语言触发 | 说明 |
+|------|--------------|------|
+| `ikiw init <path>` | "帮我建一个知识库"、"初始化一个 wiki" | 通过对话生成 SCHEMA.md |
+| `ikiw summary` | "生成摘要"、"处理一下新文章" | 批量/单篇生成摘要 |
+| `ikiw query "问题"` | "查知识库"、"搜一下…"、"知识库里有没有…" | 读摘要索引 → 定位文章 → 读原文 → 综合回答 |
+| `ikiw wiki "主题"` | "建个 wiki 页面"、"把 X 主题整理成 wiki" | 将主题知识综合为结构化页面 |
+| `ikiw ingest` | "处理新文章"、"入库" | 生成摘要 + 检查 wiki 更新 |
+| `ikiw setup-summary` | "调整一下摘要规则" | 摘要助手，通过对话定义摘要 prompt |
+
+> agent 会根据上下文自动判断意图，不必死记命令。命令形式更适合写脚本或精确控制。
 
 ## 插件系统
 
