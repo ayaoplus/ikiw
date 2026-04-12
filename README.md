@@ -1,9 +1,6 @@
 <p align="center">
   <img src="assets/logo.png" alt="ikiw" width="200">
 </p>
-
-<h1 align="center">ikiw</h1>
-
 <p align="center">
   <em>WIKI mirrored, Wisdom discovered.</em>
 </p>
@@ -17,31 +14,23 @@
 <br>
 
 <p align="center">
-  <strong>极简 skill，不依赖任何代码、数据库或向量检索，让任何 LLM agent 秒变你的私人知识库。</strong>
+  <strong>极简知识库skill，不依赖任何代码、数据库或RAG，让agent快速构建和读取你的AI知识库。</strong>
 </p>
 
 <br>
 
-<p align="center">
-  证明了 prompt 驱动的知识库是可行的。<br>
-  那何必再写代码？把文章扔进目录，LLM 替你整理、维护、综合。<br>
-  只需一句"帮我建一个知识库"，ikiw 自动完成摘要、索引、查询全流程。
+<p align="left">
+  可能是最适合AI时代的个人知识库的构建模式<br>
+  把所有文章一股脑扔进目录，这个skills 会自动替你整理、维护、分析、输出<br>
+  可扩展插件设计，在知识库基础上随意扩展各种能力：分析报告、二创写作、格式化卡片、海报……
 </p>
 
 <p align="center">
-  <a href="#设计哲学">## 设计哲学</a> ·
+  <a href="#设计哲学">设计哲学</a> ·
   <a href="#快速开始">快速开始</a> ·
   <a href="#核心能力">核心能力</a> ·
   <a href="#插件系统">插件系统</a> ·
   <a href="#致谢">致谢</a>
-</p>
-
-<p align="center">
-  <strong>其他语言 / Other Languages:</strong>
-</p>
-
-<p align="center">
-  English · 日本語 · 한국어 · Español
 </p>
 
 ---
@@ -65,6 +54,8 @@
 - 万篇以内：`summaries.md` 一次性读完，无需额外基础设施
 - 超过万篇：接入向量检索做粗筛，摘要数据可直接用于 embedding
 
+---
+
 ## 快速开始
 
 1. 把本仓库作为 skill 加载到你的 LLM agent（Claude Code、Codex、OpenCode 等）
@@ -73,6 +64,8 @@
 4. 把文章放入 `raw/` 目录
 5. 告诉 agent："帮我生成摘要"
 6. 开始查询
+
+---
 
 ## 核心能力
 
@@ -86,6 +79,8 @@
 | `ikiw wiki "主题"` | 将主题知识综合为结构化页面 |
 | `ikiw ingest` | 处理新文章，生成摘要，检查 wiki 更新 |
 | `ikiw setup-summary` | 摘要助手，通过对话定义摘要 prompt |
+
+---
 
 ## 插件系统
 
@@ -121,6 +116,8 @@
 1. **内容层** — SCHEMA.md 的 prompt 决定写什么
 2. **风格层** — `styles/` 决定怎么写
 3. **视觉层** — `designs/` 决定怎么呈现
+
+---
 
 ## 致谢
 
