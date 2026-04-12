@@ -1,5 +1,3 @@
-**语言:** 中文 | [English](i18n/en/README.md) | [한국어](i18n/ko/README.md) | [日本語](i18n/ja/README.md) | [Español](i18n/es/README.md)
-
 <p align="center">
   <img src="assets/logo.png" alt="ikiw" width="200">
 </p>
@@ -92,8 +90,7 @@ ikiw/
 ├── styles/               # 写作风格模板
 ├── templates/            # 结构化模板
 │   └── poster.md
-├── assets/               # 静态资源
-└── i18n/                 # 多语言（en/ko/ja/es）
+└── assets/               # 静态资源
 ```
 
 ## 快速开始
