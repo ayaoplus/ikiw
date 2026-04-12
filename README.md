@@ -179,8 +179,13 @@ ikiw/
     </tr>
     <tr>
       <td nowrap>视觉卡片</td>
-      <td>把内容浓缩为视觉化卡片（竖版长图 / 横版单页）</td>
+      <td>把文章/笔记凝练为核心要点卡（竖版长图 / 横版单页）</td>
       <td nowrap><a href="plugins/visual-card.md">visual-card.md</a></td>
+    </tr>
+    <tr>
+      <td nowrap>海报</td>
+      <td>活动/产品/课程营销海报（含价格、CTA、报名信息）</td>
+      <td nowrap><a href="plugins/poster.md">poster.md</a></td>
     </tr>
     <tr>
       <td nowrap>风格写作</td>
@@ -207,8 +212,8 @@ ikiw/
 
 | 目录 | 内容 | 被谁引用 |
 |------|------|----------|
-| `designs/` | 33 个视觉样式（design-md） | screenshot-export、visual-card |
-| `templates/` | 视觉卡片版式模板（竖版长图 / 横版单页） | visual-card |
+| `designs/` | 33 个视觉样式（design-md） | screenshot-export、visual-card、poster |
+| `templates/` | 视觉卡片 / 海报版式模板 | visual-card、poster |
 | `styles/` | 写作风格模板 | style-writer |
 
 ### 三层输出

@@ -65,7 +65,8 @@ agent 读取 SKILL.md 后，扫描 `plugins/` 目录加载可用插件。
 | 插件 | 文件 | 说明 |
 |------|------|------|
 | 截图导出 | `plugins/screenshot-export.md` | 将 HTML 页面导出为 PNG/PDF 长图 |
-| 视觉卡片 | `plugins/visual-card.md` | 把内容浓缩为视觉化卡片（竖版长图 / 横版单页） |
+| 视觉卡片 | `plugins/visual-card.md` | 把文章/笔记凝练为核心要点卡（竖版长图 / 横版单页） |
+| 海报 | `plugins/poster.md` | 活动/产品/课程营销海报（含价格、CTA、报名信息） |
 | 风格写作 | `plugins/style-writer.md` | 基于写作风格模板重写内容 |
 | 人物蒸馏 | `plugins/distill.md` | 从公众人物言论中蒸馏认知框架，生成思维 Skill |
 
@@ -80,8 +81,8 @@ agent 读取 SKILL.md 后，扫描 `plugins/` 目录加载可用插件。
 
 | 目录 | 内容 | 被谁引用 |
 |------|------|----------|
-| `designs/` | 视觉样式文件（design-md） | screenshot-export、visual-card |
-| `templates/` | 视觉卡片版式模板（竖版/横版） | visual-card |
+| `designs/` | 视觉样式文件（design-md） | screenshot-export、visual-card、poster |
+| `templates/` | 视觉卡片 / 海报版式模板（含画布契约、HTML 骨架、字段规范） | visual-card、poster |
 | `styles/` | 写作风格模板 | style-writer |
 
 ## 多知识库
