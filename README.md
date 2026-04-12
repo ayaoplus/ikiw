@@ -5,7 +5,7 @@
 <h1 align="center">ikiw</h1>
 
 <p align="center">
-  <em>「Wiki mirrored, Wisdom discovered.」</em>
+  <em>WIKI mirrored, Wisdom discovered.</em>
 </p>
 
 <p align="center">
@@ -23,12 +23,13 @@
 <br>
 
 <p align="center">
-  <a href="#核心特色">核心特色</a> 证明了 prompt 驱动的知识库是可行的。<br>
+  证明了 prompt 驱动的知识库是可行的。<br>
   那何必再写代码？把文章扔进目录，LLM 替你整理、维护、综合。<br>
   只需一句"帮我建一个知识库"，ikiw 自动完成摘要、索引、查询全流程。
 </p>
 
 <p align="center">
+  <a href="#设计哲学">## 设计哲学</a> ·
   <a href="#快速开始">快速开始</a> ·
   <a href="#核心能力">核心能力</a> ·
   <a href="#插件系统">插件系统</a> ·
@@ -45,7 +46,7 @@
 
 ---
 
-## 核心特色
+## 设计哲学
 
 把文章扔进一个目录，LLM 给每篇生成一段摘要，汇总到一个索引文件。查询时 LLM 读索引定位文章，读原文综合回答。就这么简单。
 
