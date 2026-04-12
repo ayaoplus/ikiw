@@ -14,13 +14,13 @@
 <br>
 
 <p align="center">
+  <strong>可能是最适合AI时代的个人知识库的构建模式</strong><br>
   <strong>极简知识库skill，不依赖任何代码、数据库或RAG，让agent快速构建和读取你的AI知识库。</strong>
 </p>
 
 <br>
 
-<p align="left">
-  可能是最适合AI时代的个人知识库的构建模式<br>
+<p align="center">
   把所有文章一股脑扔进目录，这个skills 会自动替你整理、维护、分析、输出<br>
   可扩展插件设计，在知识库基础上随意扩展各种能力：分析报告、二创写作、格式化卡片、海报……
 </p>
