@@ -30,27 +30,71 @@ my-wiki/
 └── SCHEMA.md         # 知识库配置（自定义 prompt）
 ```
 
-## 能力
+## 核心能力
+
+知识库本身提供四个核心命令：
 
 | 命令 | 说明 |
 |------|------|
-| 摘要生成 | 读文章，生成摘要，追加到 summaries.md |
-| 批量摘要 | 检测未处理文章，批量生成 |
-| 查询 | 读摘要索引 → 定位文章 → 读原文 → 综合回答 |
-| Wiki 生成 | 将主题知识综合为结构化页面，按需创建 |
-| 风格写作 | 基于内容 + 写作风格模板输出文章 |
-| 样式输出 | 用 design-md 渲染为 styled HTML |
-| 新文章入库 | 生成摘要、检查 wiki 更新 |
-| 初始化 | 创建知识库、通过对话生成 SCHEMA.md |
-| 摘要助手 | 通过对话帮用户定义摘要 prompt |
+| `ikiw init <path>` | 初始化知识库，通过对话生成 SCHEMA.md |
+| `ikiw summary` | 批量/单篇生成摘要 |
+| `ikiw query "问题"` | 读摘要索引 → 定位文章 → 读原文 → 综合回答 |
+| `ikiw wiki "主题"` | 将主题知识综合为结构化页面 |
+| `ikiw ingest` | 处理新文章，生成摘要，检查 wiki 更新 |
+| `ikiw setup-summary` | 摘要助手，通过对话定义摘要 prompt |
 
-## 三层输出
+## 插件系统
 
-同一份内容可以逐层叠加不同模板：
+核心只管知识库。其他能力通过插件扩展——每个插件是一个 `.md` 文件，放到 `plugins/` 目录即可生效。
 
-1. **内容层** — SCHEMA.md 中的 wiki prompt 决定写什么
-2. **风格层** — `styles/` 目录下的写作风格模板决定怎么写
-3. **视觉层** — `designs/` 目录下的 design-md 决定怎么呈现
+### 官方插件
+
+| 插件 | 文件 | 命令 | 说明 |
+|------|------|------|------|
+| 截图导出 | `screenshot-export.md` | `ikiw export` | 将 HTML 导出为 PNG 长图或 PDF |
+| 海报生成 | `poster-generator.md` | `ikiw poster` | 从内容自动生成多风格海报 |
+| 风格写作 | `style-writer.md` | `ikiw write` | 基于写作风格模板重写内容 |
+
+### 自定义插件
+
+编写一个 `.md` 文件，放入 `plugins/` 目录就是一个插件。约定见 [plugins/PLUGINS.md](plugins/PLUGINS.md)。
+
+### 资源目录
+
+插件可引用以下共享资源：
+
+| 目录 | 内容 | 被谁引用 |
+|------|------|----------|
+| `designs/` | 33 个视觉样式（design-md） | screenshot-export、poster-generator |
+| `styles/` | 写作风格模板 | style-writer |
+| `templates/` | 结构化模板（海报骨架等） | poster-generator |
+
+### 三层输出
+
+插件组合可实现三层叠加输出：
+
+1. **内容层** — SCHEMA.md 的 prompt 决定写什么
+2. **风格层** — `styles/` 决定怎么写
+3. **视觉层** — `designs/` 决定怎么呈现
+
+## 项目结构
+
+```
+ikiw/
+├── SKILL.md              # 核心 skill 定义
+├── SCHEMA.template.md    # 知识库配置模板
+├── plugins/              # 插件目录
+│   ├── PLUGINS.md        # 插件开发约定
+│   ├── screenshot-export.md
+│   ├── poster-generator.md
+│   └── style-writer.md
+├── designs/              # 视觉样式（33 个 design-md）
+├── styles/               # 写作风格模板
+├── templates/            # 结构化模板
+│   └── poster.md
+├── assets/               # 静态资源
+└── i18n/                 # 多语言（en/ko/ja/es）
+```
 
 ## 快速开始
 
@@ -60,22 +104,6 @@ my-wiki/
 4. 把文章放入 `raw/` 目录
 5. 告诉 agent："帮我生成摘要"
 6. 开始查询
-
-## 项目结构
-
-```
-ikiw/
-├── SKILL.md              # skill 定义（agent 的入口）
-├── SCHEMA.template.md    # 知识库配置模板
-├── designs/              # 视觉样式（design-md）
-│   ├── notion.md
-│   ├── claude.md
-│   ├── linear.app.md
-│   ├── stripe.md
-│   ├── vercel.md
-│   └── mintlify.md
-└── styles/               # 写作风格模板（用户自行添加）
-```
 
 ## 规模
 
@@ -88,7 +116,7 @@ ikiw/
 - **不碰原文** — raw/ 目录只读
 - **不提前生成** — wiki 按需创建，不浪费
 - **不绑平台** — 任何能读写文件的 LLM agent 都能用
-- **不过度设计** — 到了需要的时候再加功能
+- **插件式扩展** — 核心精简，能力通过插件动态增长
 
 ## 添加视觉样式
 
