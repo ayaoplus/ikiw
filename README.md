@@ -2,12 +2,48 @@
   <img src="assets/logo.png" alt="ikiw" width="200">
 </p>
 
-# ikiw
+<h1 align="center">ikiw</h1>
 
-> *Wiki mirrored, Wisdom discovered.*
+<p align="center">
+  <em>「Wiki mirrored, Wisdom discovered.」</em>
+</p>
 
-**极简skill，不依赖任何代码、数据库或向量检索，快速搭建基于agent的自动化知识库。**
-**插件化设计，用提示词就可以无限扩展知识库能力，无侵入式设计，优雅简洁。**
+<p align="center">
+  <img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="License: MIT">
+  <img src="https://img.shields.io/badge/Claude%20Code-Skill-8A2BE2" alt="Claude Code Skill">
+  <img src="https://img.shields.io/badge/skills.sh-Compatible-9ACD32" alt="skills.sh Compatible">
+</p>
+
+<br>
+
+<p align="center">
+  <strong>极简 skill，不依赖任何代码、数据库或向量检索，让任何 LLM agent 秒变你的私人知识库。</strong>
+</p>
+
+<br>
+
+<p align="center">
+  <a href="#核心特色">核心特色</a> 证明了 prompt 驱动的知识库是可行的。<br>
+  那何必再写代码？把文章扔进目录，LLM 替你整理、维护、综合。<br>
+  只需一句"帮我建一个知识库"，ikiw 自动完成摘要、索引、查询全流程。
+</p>
+
+<p align="center">
+  <a href="#快速开始">快速开始</a> ·
+  <a href="#核心能力">核心能力</a> ·
+  <a href="#插件系统">插件系统</a> ·
+  <a href="#致谢">致谢</a>
+</p>
+
+<p align="center">
+  <strong>其他语言 / Other Languages:</strong>
+</p>
+
+<p align="center">
+  English · 日本語 · 한국어 · Español
+</p>
+
+---
 
 ## 核心特色
 
