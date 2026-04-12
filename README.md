@@ -17,7 +17,7 @@
 <p align="center">
   没有任何代码、数据库或 RAG，让 agent 快速构建和读取你的 AI 知识库<br>
   把所有文章一股脑扔进目录即可，这个 skill 会自动帮你整理、维护、分析、输出<br>
-  可扩展插件设计，在知识库基础上随意扩展各种能力：分析报告、二创写作、格式化卡片、海报……
+  可扩展插件设计，在知识库基础上随意扩展各种能力：分析报告、二创写作、视觉卡片、人物蒸馏……
 </p>
 
 <p align="center">
@@ -137,9 +137,9 @@ ikiw/
 ├── SKILL.md           # skill 入口定义
 ├── SCHEMA.template.md # 知识库配置模板
 ├── plugins/           # 插件（每个 .md 文件即一个插件）
-├── designs/           # 视觉样式（design-md，供截图、海报插件使用）
+├── designs/           # 视觉样式（design-md，供截图、视觉卡片插件使用）
 ├── styles/            # 写作风格模板（供 style-writer 插件使用）
-└── templates/         # 结构化模板（如海报骨架）
+└── templates/         # 视觉卡片版式模板（竖版长图 / 横版单页）
 ```
 
 ---
@@ -178,9 +178,9 @@ ikiw/
       <td nowrap><a href="plugins/screenshot-export.md">screenshot-export.md</a></td>
     </tr>
     <tr>
-      <td nowrap>海报生成</td>
-      <td>从内容自动生成多风格海报</td>
-      <td nowrap><a href="plugins/poster-generator.md">poster-generator.md</a></td>
+      <td nowrap>视觉卡片</td>
+      <td>把内容浓缩为视觉化卡片（竖版长图 / 横版单页）</td>
+      <td nowrap><a href="plugins/visual-card.md">visual-card.md</a></td>
     </tr>
     <tr>
       <td nowrap>风格写作</td>
@@ -207,9 +207,9 @@ ikiw/
 
 | 目录 | 内容 | 被谁引用 |
 |------|------|----------|
-| `designs/` | 33 个视觉样式（design-md） | screenshot-export、poster-generator |
+| `designs/` | 33 个视觉样式（design-md） | screenshot-export、visual-card |
+| `templates/` | 视觉卡片版式模板（竖版长图 / 横版单页） | visual-card |
 | `styles/` | 写作风格模板 | style-writer |
-| `templates/` | 结构化模板（海报骨架等） | poster-generator |
 
 ### 三层输出
 

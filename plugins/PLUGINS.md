@@ -31,7 +31,7 @@ ikiw 的插件是一个 `.md` 文件，放到 `plugins/` 目录即可生效。ag
 ## 命名约定
 
 - 文件名用英文，`kebab-case` 格式
-- 名称应能直接表达功能，如 `screenshot-export.md`、`poster-generator.md`
+- 名称应能直接表达功能，如 `screenshot-export.md`、`visual-card.md`
 - 避免模糊命名，如 `export.md`、`output.md`
 
 ## 资源引用
@@ -42,7 +42,7 @@ ikiw 的插件是一个 `.md` 文件，放到 `plugins/` 目录即可生效。ag
 |------|------|------|
 | `designs/` | 视觉样式文件 | 每个 `.md` 文件是一个 design-md 样式定义 |
 | `styles/` | 写作风格模板 | 每个 `.md` 文件是一个写作风格定义 |
-| `templates/` | 结构化模板 | 如海报骨架模板，定义内容提炼规则和 HTML 结构 |
+| `templates/` | 结构化模板 | 如视觉卡片版式（竖版/横版），定义画布契约、内容提炼规则和 HTML 骨架 |
 
 ## 编写原则
 
@@ -55,5 +55,5 @@ ikiw 的插件是一个 `.md` 文件，放到 `plugins/` 目录即可生效。ag
 
 参考官方插件：
 - `screenshot-export.md` — 截图导出
-- `poster-generator.md` — 海报生成
+- `visual-card.md` — 视觉卡片生成
 - `style-writer.md` — 风格写作
