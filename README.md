@@ -2,7 +2,7 @@
   <img src="assets/logo.png" alt="ikiw" width="200">
 </p>
 <p align="center">
-  <em>WIKI mirrored, Wisdom discovered.</em>
+  <em>WIKI mirrored, Wisdom discovered.</em><br>
   <strong>可能是最适合AI时代的个人知识库的构建模式</strong>
 </p>
 
