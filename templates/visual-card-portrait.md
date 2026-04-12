@@ -1,54 +1,48 @@
 # 视觉卡片：竖版长图（Portrait）
 
-固定宽度 750px、高度自适应的竖向长图。适合社交媒体分享、长内容浓缩、流程/时间线可视化。
+固定宽度 750px、高度自适应的竖向长图。**用于把一篇文章/笔记的核心观点凝练成一张可分享的卡片**——只讲核心，不讲完整骨架。
+
+> 不是用来宣传活动/产品（那是 `poster` 插件），也不是用来呈现完整方法论结构（那是 `structure-map` 插件）。
 
 ---
 
 ## 第一步：内容提炼
 
-从原始内容中提取以下结构化信息。如果原文没有明确提供某项，合理推断或留空（留空时该区块整体省略）。
+从原文中提取以下结构化信息。**面向"内容凝练"**——抽出文章想表达的核心观点和支撑要点，不是套用营销字段。
 
 ```yaml
-brand: 品牌/组织名称
-event: 活动名称或类型标签（如"快闪行动""训练营""发布会"）
-title: 主标题（10字以内，核心卖点）
-subtitle: 副标题（一句话，20字以内，补充说明）
-tagline: 英文标语（可选，用于装饰）
+source: 出处（书名/文章名/作者/平台，可选；用作 hero 上方的小标签）
+title: 主标题（10字以内，文章的核心观点或最锋利的一句话）
+subtitle: 副标题（一句话，20-30字，补充展开 title）
 
-highlights:
-  intro: 一句话总结亮点的核心逻辑（如"不是学工具，而是学落地"）
+key_points:
+  intro: 一句话引言（点出这些要点的共同逻辑，可选）
   items:
-    - 亮点1（15字以内）
-    - 亮点2
-    - 亮点3
-    - 亮点4
-    - 亮点5
-    - 亮点6（最多 6 条）
+    - 要点1（15字以内，独立的核心点）
+    - 要点2
+    - 要点3
+    - 要点4
+    - 要点5（最多 5 条）
 
 tags:
-  - 标签1（4字以内，如"人人可操作"）
-  - 标签2
-  - 标签3
-  - 标签4（最多 4 个）
-
-timeline:
-  - date: "日期"
-    event: "事件描述"
-  - date: "日期"
-    event: "事件描述"
+  - 关键词1（4字以内，是观点标签或情绪标签）
+  - 关键词2
+  - 关键词3
+  - 关键词4（最多 4 个）
 
 footer:
-  name: 品牌/作者名
-  note: 一行补充信息
+  source: 引用出处（"《XX》P.42""@作者 / 公众号"）
+  link: 原文链接（可选）
 ```
 
 ### 提炼规则
 
-- **标题要短**：砍掉修饰词，留动词和名词。"21天掌握从内容生产到带货落地核心打法" → 标题"全域带货实战营"，副标题"21天掌握内容生产到带货落地核心打法"
-- **亮点要并列**：每条亮点是独立的卖点，不要有递进关系。读者扫一眼就能抓住价值
-- **标签要极短**：4 个字最佳，最多 6 个字。是情绪标签不是描述："易上手""可复制""低门槛"
-- **时间线要简**：日期 + 3-5 字事件描述。不要写完整句子
-- **footer 是可选的**：原文没有就**整段省略**，绝不留空白占位
+- **标题要锋利**：是文章中"最值得被记住"的那一句话或核心论点，不是流水账标题。"如何构建个人知识库" → "AI 时代的知识库不再需要标签"
+- **要点要并列**：每条独立支撑标题，没有递进/嵌套关系。读者扫一眼能记住
+- **关键词不是分类**：是读者读完后会留在脑子里的"调子"——"反共识""有温度""第一性原理"，不是"AI/工具/方法"
+- **如果原文是活动/产品宣传，停下并提示用户改用 `poster` 插件**——视觉卡片不为营销服务，硬塞会两败俱伤
+- **如果原文是结构复杂的方法论/教程，提示用户改用 `structure-map`**——视觉卡片只能放 5 个点，方法论塞不下
+- **footer 可选**：原文没有出处信息就整段省略，禁止留空
 
 ---
 
@@ -82,53 +76,42 @@ footer:
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{{brand}} · {{event}}</title>
+  <title>{{title}} · {{source}}</title>
   <style>
     /* 根据指定的 design-md 生成对应的 CSS */
   </style>
 </head>
 <body>
 
-  <!-- 1. Hero 区：品牌标签 + 主标题 + 副标题 -->
+  <!-- 1. Hero 区：出处标签 + 主标题 + 副标题 -->
   <section class="hero">
-    <div class="badge">{{brand}} · {{event}}</div>
+    <div class="source">{{source}}</div>
     <h1>{{title}}</h1>
     <div class="subtitle">{{subtitle}}</div>
   </section>
 
-  <!-- 2. 亮点区：引言 + 列表 -->
-  <section class="section highlights-section">
-    <div class="section-header">项目亮点</div>
-    <div class="section-intro">{{highlights.intro}}</div>
-    <div class="highlights-list">
-      <!-- 每条亮点一个 item -->
-      <div class="highlight-item">
-        <span class="highlight-dot"></span>
-        <span>{{highlight}}</span>
+  <!-- 2. 核心要点区 -->
+  <section class="section key-points-section">
+    <div class="section-header">核心要点</div>
+    <div class="section-intro">{{key_points.intro}}</div>
+    <div class="key-points-list">
+      <!-- 每条要点一个 item -->
+      <div class="key-point-item">
+        <span class="key-point-dot"></span>
+        <span>{{key_point}}</span>
       </div>
     </div>
   </section>
 
-  <!-- 3. 标签区 -->
+  <!-- 3. 关键词区 -->
   <section class="tags">
     <span class="tag">{{tag}}</span>
   </section>
 
-  <!-- 4. 时间线区（无数据则整段省略） -->
-  <section class="section timeline-section">
-    <div class="section-header">时间排期</div>
-    <div class="timeline">
-      <div class="timeline-item">
-        <span class="timeline-date">{{date}}</span>
-        <span class="timeline-event">{{event}}</span>
-      </div>
-    </div>
-  </section>
-
-  <!-- 5. Footer（原文无则整段省略） -->
+  <!-- 4. Footer：出处归属（原文无则整段省略） -->
   <footer class="footer">
-    <div class="footer-name">{{footer.name}}</div>
-    <div class="footer-note">{{footer.note}}</div>
+    <div class="footer-source">{{footer.source}}</div>
+    <div class="footer-link">{{footer.link}}</div>
   </footer>
 
 </body>
@@ -137,20 +120,19 @@ footer:
 
 ### 结构规则
 
-- **Hero 区必须有**：badge + h1 + subtitle，是卡片的第一视觉焦点
-- **亮点区**：section-header + intro（一句话）+ 列表（最多 6 条）
-- **标签区**：紧跟亮点区下方，横向排列，是亮点的"总结标签"
-- **时间线区**：无时间信息则整段省略
-- **Footer**：原文无则整段省略
+- **Hero 区必须有**：source（可缺）+ h1 + subtitle，是卡片的第一视觉焦点
+- **核心要点区**：section-header + intro（可选一句话）+ 列表（**最多 5 条**）
+- **关键词区**：紧跟要点区下方，横向排列，最多 4 个
+- **Footer**：原文有出处/链接才显示，否则整段省略
 
 ### 禁止替换的组件
 
 LLM 容易"自由发挥"换组件，下列禁止：
 
-- 禁止把 `.highlight-item` 替换为 `<ul><li>` 或带 emoji 的列表
-- 禁止把 `.timeline-item` 替换为编号步骤组件（圆圈数字 + 描述）
+- 禁止把 `.key-point-item` 替换为 `<ul><li>` 或带 emoji 的列表
 - 禁止额外加 hero 上方的"装饰条""页眉"
 - 禁止 footer 加渐变背景或大块色块
+- **禁止加 timeline、CTA、价格、报名按钮等营销字段**——这些属于 `poster` 插件，视觉卡片只做内容凝练
 
 ### CSS 类名约定
 
@@ -159,23 +141,19 @@ LLM 容易"自由发挥"换组件，下列禁止：
 | 类名 | 用途 |
 |------|------|
 | `.hero` | 顶部 hero 区容器 |
-| `.badge` | 品牌/事件标签 |
+| `.source` | 出处标签（在 hero 顶部） |
 | `.subtitle` | 副标题 |
 | `.section` | 通用内容区块 |
-| `.section-header` | 区块标题（"项目亮点""时间排期"） |
+| `.section-header` | 区块标题（"核心要点"） |
 | `.section-intro` | 区块引言（一句话） |
-| `.highlights-list` | 亮点列表容器 |
-| `.highlight-item` | 单条亮点 |
-| `.highlight-dot` | 亮点前的装饰符号 |
-| `.tags` | 标签容器 |
-| `.tag` | 单个标签 |
-| `.timeline` | 时间线容器 |
-| `.timeline-item` | 时间线单条 |
-| `.timeline-date` | 日期 |
-| `.timeline-event` | 事件描述 |
+| `.key-points-list` | 要点列表容器 |
+| `.key-point-item` | 单条要点 |
+| `.key-point-dot` | 要点前的装饰符号 |
+| `.tags` | 关键词容器 |
+| `.tag` | 单个关键词 |
 | `.footer` | 底部 |
-| `.footer-name` | 品牌/作者名 |
-| `.footer-note` | 补充信息 |
+| `.footer-source` | 出处归属 |
+| `.footer-link` | 原文链接 |
 
 ---
 
@@ -195,16 +173,16 @@ LLM 容易"自由发挥"换组件，下列禁止：
 | `.section-intro` | Caption / Secondary text |
 | `.highlight-item` | List item 样式，装饰符号用品牌色 |
 | `.tag` | Badge / Label 的样式 |
-| `.timeline-date` | 品牌色 + 加粗 |
-| `.timeline-event` | Secondary text |
 | `.footer` | Footer / Back page 的样式 |
+
+> 已废弃的映射（不再使用）：`.badge`（→ 改为 `.source`）、`.timeline-*`（视觉卡片不放时间线）。
 
 ### 视觉适配原则
 
-- **深色系 design**（ferrari、bmw、runwayml、sentry）：hero 用深色底 + 白字，亮点和时间线也保持深色
+- **深色系 design**（ferrari、bmw、runwayml、sentry）：hero 用深色底 + 白字，要点区也保持深色
 - **浅色系 design**（huasheng、notion、mintlify）：hero 可用品牌色块或浅色块，正文用白底；**禁止使用渐变背景**（除非 design-md 明确允许）
 - **混合系 design**（claude、sanity）：hero 用深色底，正文切白底或浅色底
-- **品牌色只用在**：badge、section-header、highlight-dot、timeline-date、tag。不要大面积铺品牌色
+- **品牌色只用在**：source、section-header、key-point-dot、tag。不要大面积铺品牌色
 
 ---
 
@@ -216,9 +194,9 @@ LLM 容易"自由发挥"换组件，下列禁止：
 
 - [ ] body 是否固定宽度 750px 并居中？
 - [ ] body 是否有 ≥ 40px 的左右 padding（safe area）？
-- [ ] hero 内的数据卡片、badge、subtitle 是否都在 safe area 内（未贴边）？
-- [ ] highlight-item 列表是否在 safe area 内？
-- [ ] tag、timeline-item 是否在 safe area 内？
+- [ ] hero 内的 source、h1、subtitle 是否都在 safe area 内（未贴边）？
+- [ ] key-point-item 列表是否在 safe area 内？
+- [ ] tag 是否在 safe area 内？
 - [ ] 相邻 section 之间是否 ≥ 40px 垂直间距？
 - [ ] 是否存在空白 footer 占位（footer 区有背景色但没内容）？如有，必须删除整个 footer 块
 - [ ] 卡片最底部是否紧贴最后一个内容区块（仅留 body padding-bottom）、无大块空白？
@@ -231,7 +209,8 @@ LLM 容易"自由发挥"换组件，下列禁止：
 
 ### 内容自查
 
-- [ ] 标题是否 ≤ 10 字？
-- [ ] highlight 是否每条 ≤ 15 字、无递进关系？
-- [ ] tag 是否每条 ≤ 6 字？
-- [ ] timeline 的 event 是否 3–5 字短描述（不是完整句子）？
+- [ ] 标题是否 ≤ 10 字？是否是文章中"最锋利的一句"？
+- [ ] key_points 是否 ≤ 5 条、每条 ≤ 15 字、无递进关系？
+- [ ] tag 是否 ≤ 4 个、每条 ≤ 4 字、是观点/情绪标签而非分类标签？
+- [ ] **是否误用为活动/产品营销？** 如有 CTA、价格、报名按钮、时间地点 → 停止，告诉用户改用 `poster` 插件
+- [ ] **是否误用为方法论结构？** 如有大量层级、原本应该有"步骤""清单""对比"等结构 → 停止，告诉用户改用 `structure-map` 插件

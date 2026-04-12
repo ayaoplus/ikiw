@@ -2,29 +2,30 @@
 
 固定 1280×720 的横向画面（16:9）。适合 Twitter/X 配图、博客封面、PPT 嵌入、Slack 分享——"一屏看完"的信息密度。
 
+> 与竖版同样**面向"内容凝练"**——只浓缩一篇文章/笔记的核心观点，不为活动营销服务（→ `poster`）、不为完整结构服务（→ `structure-map`）。
+
 ---
 
 ## 第一步：内容提炼
 
-横版只能装下一屏信息，比竖版更克制。提取的字段更少：
+横版只能装下一屏信息，比竖版更克制。
 
 ```yaml
-brand: 品牌/组织名称
-event: 事件/类型标签（可选）
-title: 主标题（10字以内）
+source: 出处（书名/文章名/作者/平台，可选；显示为 hero 顶部小标签）
+title: 主标题（10字以内，文章最锋利的一句）
 subtitle: 副标题（一句话，20字以内）
 
-# 二选一：核心内容
-mode: highlights | quote | stats | compare
+# 四选一：核心内容形态
+mode: key_points | quote | stats | compare
 
-# mode = highlights：4 条以内亮点
-highlights:
+# mode = key_points：要点卡（默认，最常用）
+key_points:
   intro: 一句话引言（可选）
   items:
-    - 亮点1（12字以内）
-    - 亮点2
-    - 亮点3
-    - 亮点4（最多 4 条）
+    - 要点1（12字以内）
+    - 要点2
+    - 要点3
+    - 要点4（最多 4 条）
 
 # mode = quote：金句卡
 quote:
@@ -33,12 +34,12 @@ quote:
 
 # mode = stats：数据卡（2-3 个数字）
 stats:
-  - value: "21天"
-    label: "陪跑训练"
-  - value: "5步"
-    label: "完整流程"
-  - value: "1对1"
-    label: "贴身辅导"
+  - value: "70%"
+    label: "用户留存提升"
+  - value: "3x"
+    label: "查询速度"
+  - value: "0"
+    label: "代码改动"
 
 # mode = compare：对比卡
 compare:
@@ -50,26 +51,26 @@ compare:
     items: ["要点1", "要点2", "要点3"]
 
 tags:
-  - 标签1（4字以内）
-  - 标签2
-  - 标签3（最多 3 个）
+  - 关键词1（4字以内）
+  - 关键词2
+  - 关键词3（最多 3 个）
 
 footer:
-  name: 品牌/作者名（横版 footer 是底部一行，省略 note）
+  source: 出处归属（"《XX》""@作者"，可选）
 ```
 
 ### 模式选择规则
 
-- 内容是**多个并列亮点** → `highlights`（默认）
+- 内容是**多个并列要点** → `key_points`（默认，覆盖 80% 场景）
 - 内容是**一句话精华** → `quote`
 - 内容包含**几个关键数字** → `stats`
 - 内容是**两种方案/前后对比** → `compare`
 
-### 提炼规则（与竖版的差异）
+### 提炼规则
 
-- **更短**：横版字段比竖版少 30-40%。亮点 12 字内，标签 3 个内
-- **不放时间线**：横版装不下时间线，有时间信息也压缩到 quote 或 stats
-- **footer 单行**：只放 brand name，省略 note。视觉上是底部品牌行
+- **更短**：横版字段比竖版少 30-40%。要点 12 字内，关键词 3 个内
+- **不放时间线、CTA、价格、报名**——这些是营销字段，应该用 `poster` 插件
+- **footer 单行**：只放 source（出处归属），原文无则整段省略
 
 ---
 
@@ -99,7 +100,7 @@ footer:
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-  <title>{{brand}} · {{title}}</title>
+  <title>{{title}} · {{source}}</title>
   <style>
     /* 根据指定的 design-md 生成对应的 CSS */
   </style>
@@ -110,11 +111,11 @@ footer:
 
     <!-- 左栏：Hero -->
     <section class="hero">
-      <div class="badge">{{brand}} · {{event}}</div>
+      <div class="source">{{source}}</div>
       <h1>{{title}}</h1>
       <div class="subtitle">{{subtitle}}</div>
 
-      <!-- 标签紧贴 hero 底部 -->
+      <!-- 关键词紧贴 hero 底部 -->
       <div class="tags">
         <span class="tag">{{tag}}</span>
       </div>
@@ -123,13 +124,13 @@ footer:
     <!-- 右栏：内容主体（按 mode 选一种） -->
     <section class="content">
 
-      <!-- mode = highlights -->
-      <div class="highlights-section">
-        <div class="section-intro">{{highlights.intro}}</div>
-        <div class="highlights-list">
-          <div class="highlight-item">
-            <span class="highlight-dot"></span>
-            <span>{{highlight}}</span>
+      <!-- mode = key_points -->
+      <div class="key-points-section">
+        <div class="section-intro">{{key_points.intro}}</div>
+        <div class="key-points-list">
+          <div class="key-point-item">
+            <span class="key-point-dot"></span>
+            <span>{{key_point}}</span>
           </div>
         </div>
       </div>
@@ -168,9 +169,9 @@ footer:
 
   </main>
 
-  <!-- Footer：底部品牌单行（原文无则省略） -->
+  <!-- Footer：底部出处单行（原文无则省略） -->
   <footer class="footer">
-    <div class="footer-name">{{footer.name}}</div>
+    <div class="footer-source">{{footer.source}}</div>
   </footer>
 
 </body>
@@ -180,9 +181,9 @@ footer:
 ### 结构规则
 
 - **两栏栅格**：`.card-grid { display: grid; grid-template-columns: 5fr 7fr; gap: 48px; }`（hero 占 5/12，content 占 7/12）
-- **Hero 区**：badge + h1 + subtitle + tags（标签紧贴 hero 底部，不再独立成区）
+- **Hero 区**：source + h1 + subtitle + tags（关键词紧贴 hero 底部，不再独立成区）
 - **Content 区**：按 mode 选一种内容结构
-- **Footer**：独立于栅格之外，固定在 body 底部一行
+- **Footer**：独立于栅格之外，固定在 body 底部一行；原文无 source 则整段省略
 
 ### 禁止替换的组件
 
@@ -190,6 +191,7 @@ footer:
 - 禁止 stat-item 用图标 emoji 替代数字
 - 禁止 quote 不带引号视觉
 - 禁止内容溢出后用 `overflow: scroll` 兜底
+- **禁止加营销字段**（CTA、价格、报名、时间地点）——属于 `poster` 插件
 
 ### CSS 类名约定
 
@@ -197,15 +199,15 @@ footer:
 |------|------|
 | `.card-grid` | 主栅格容器（两栏） |
 | `.hero` | 左栏 hero |
-| `.badge` | 品牌/事件标签 |
+| `.source` | 出处标签（hero 顶部） |
 | `.subtitle` | 副标题 |
-| `.tags` / `.tag` | hero 底部的标签组 |
+| `.tags` / `.tag` | hero 底部的关键词组 |
 | `.content` | 右栏内容容器 |
-| `.highlights-section` / `.highlights-list` / `.highlight-item` / `.highlight-dot` | highlights 模式 |
+| `.key-points-section` / `.key-points-list` / `.key-point-item` / `.key-point-dot` | key_points 模式 |
 | `.quote` / `.quote-text` / `.quote-attribution` | quote 模式 |
 | `.stats-grid` / `.stat-item` / `.stat-value` / `.stat-label` | stats 模式 |
 | `.compare-grid` / `.compare-col` / `.compare-title` | compare 模式 |
-| `.footer` / `.footer-name` | 底部品牌单行 |
+| `.footer` / `.footer-source` | 底部出处单行 |
 
 ---
 
@@ -221,7 +223,7 @@ footer:
 | `.content`（右栏） | 通常白底/浅底，承载主信息 |
 | `h1` | Display / Hero heading 的字号、字重、行高 |
 | `.subtitle` | Body Large / Intro 的样式 |
-| `.highlight-item` | List item 样式，装饰符号用品牌色 |
+| `.key-point-item` | List item 样式，装饰符号用品牌色 |
 | `.quote-text` | Display / Pull-quote 样式（大字号、可斜体） |
 | `.stat-value` | 大号数字（48-72px），品牌色或深色 |
 | `.stat-label` | Caption / Secondary text |
@@ -245,11 +247,11 @@ footer:
 
 - [ ] body 是否固定 1280×720？是否设置 `overflow: hidden`？
 - [ ] body 是否有 ≥ 56px 的左右 padding？
-- [ ] hero 内的 badge、h1、subtitle、tags 是否都在 safe area 内（未贴边）？
+- [ ] hero 内的 source、h1、subtitle、tags 是否都在 safe area 内（未贴边）？
 - [ ] content 区是否在 safe area 内？
 - [ ] 内容是否完全装在 720px 内、无溢出？（在浏览器/截图工具里渲染验证）
 - [ ] 如果内容溢出，是否回到「第一步」再次缩减字数 / 删条目，而不是缩小字号兜底？
-- [ ] footer 是否单行紧贴底部？无 brand 时是否整段省略？
+- [ ] footer 是否单行紧贴底部？无 source 时是否整段省略？
 
 ### 风格自查（对照 design-md）
 
@@ -259,8 +261,10 @@ footer:
 
 ### 内容自查
 
-- [ ] 标题是否 ≤ 10 字？
-- [ ] highlight 每条 ≤ 12 字、最多 4 条？
+- [ ] 标题是否 ≤ 10 字？是否是文章中"最锋利的一句"？
+- [ ] key_points 每条 ≤ 12 字、最多 4 条？
 - [ ] quote ≤ 30 字？
 - [ ] stat 最多 3 个？
-- [ ] tag 最多 3 个、每条 ≤ 4 字？
+- [ ] tag 最多 3 个、每条 ≤ 4 字、是观点/情绪标签而非分类标签？
+- [ ] **是否误用为活动/产品营销？** 如有 CTA、价格、报名按钮 → 停止，提示用户改用 `poster`
+- [ ] **是否误用为方法论结构？** 如有大量层级、原本应有"步骤""清单""对比" → 停止，提示用户改用 `structure-map`
