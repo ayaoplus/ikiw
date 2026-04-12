@@ -47,7 +47,24 @@ footer:
 - **标签要极短**：4个字最佳，最多6个字。是情绪标签不是描述："易上手""可复制""低门槛"
 - **时间线要简**：日期 + 3-5字事件描述。不要写完整句子
 
-## 第二步：HTML 结构
+## 第二步：画布规范（强制）
+
+海报是**固定宽度的竖向长图**，不是响应式网页。生成 HTML 时必须遵守以下空间契约：
+
+| 项 | 约束 |
+|----|------|
+| 画布宽度 | `body { width: 750px; margin: 0 auto; }` 固定 750px 居中 |
+| 左右安全区 | `body { padding-left: 48px; padding-right: 48px; }` 所有内容必须落在 safe area 内 |
+| 顶部/底部 padding | `body { padding-top: 56px; padding-bottom: 56px; }` |
+| 子元素继承 | section、hero、tags、timeline 等区块**不再单独设置左右 padding**，全部继承 body 的 safe area |
+| Section 垂直间距 | 相邻 section 之间至少 `margin-top: 48px`（视觉风格允许的话可放大到 64-80px） |
+| 卡片/列表内边距 | hero 内的数据卡、highlight-item、tag、timeline-item 等子元素**不允许贴边**，必须落在 safe area 内 |
+| Footer 处理 | 如果原文没有 footer 信息，**整个 footer 区块直接省略**，不允许出现空白 footer 占位条 |
+| 海报底部 | 最后一个内容区块结束后即结束（加上 body 的 padding-bottom），不允许下方留出大块空白 |
+
+> 这一节的规则**优先于 design-md 中的网页 padding 规范**。design-md 描述的是网页文档，海报是固定画布，二者空间体系不同。
+
+## 第三步：HTML 结构
 
 所有海报统一使用以下 HTML 骨架。design-md 只控制 CSS 样式，不改变结构。
 
@@ -143,7 +160,7 @@ footer:
 | `.footer-name` | 品牌/作者名 |
 | `.footer-note` | 补充信息 |
 
-## 第三步：套用视觉样式
+## 第四步：套用视觉样式
 
 读取指定的 design-md 文件（如 `designs/ferrari.md`），按其定义的色彩、字体、间距、组件风格生成 CSS。
 
@@ -169,3 +186,31 @@ footer:
 - **浅色系 design（huasheng, notion, mintlify）**：hero 可用品牌色底或渐变底，正文用白底
 - **混合系 design（claude, sanity）**：hero 用深色底，正文切白底或浅色底
 - **品牌色只用在**：badge、section-header、highlight-dot、timeline-date、tag。不要大面积铺品牌色
+
+## 第五步：生成后自查（必做）
+
+生成 HTML 后，按以下清单逐条对照。任何一条不通过都必须修正后重新输出，**不允许带瑕疵交付**：
+
+### 空间自查
+
+- [ ] body 是否固定宽度 750px 并居中？
+- [ ] body 是否有 ≥ 40px 的左右 padding（safe area）？
+- [ ] hero 内的数据卡片、badge、subtitle 是否都在 safe area 内（未贴边）？
+- [ ] highlight-item 列表是否在 safe area 内？
+- [ ] tag、timeline-item 是否在 safe area 内？
+- [ ] 相邻 section 之间是否 ≥ 40px 垂直间距？
+- [ ] 是否存在空白 footer 占位（footer 区有背景色但没内容）？如有，必须删除整个 footer 块
+- [ ] 海报最底部是否紧贴最后一个内容区块（仅留 body padding-bottom），无大块空白？
+
+### 风格自查（对照 design-md 的 Don't 列表）
+
+- [ ] 读 design-md 第 7 节 "Do's and Don'ts"，逐条对照本次输出是否违反
+- [ ] 例：huasheng 禁止 hero 用渐变背景（除 cover/back page）；notion 禁止重阴影；ferrari 禁止浅色 hero 等
+- [ ] 例：huasheng 要求 §01 §02 章节编号、3px 橙色顶分隔线、weight 900 主标题——这些是该风格的"身份标志"，缺一不可
+
+### 内容自查
+
+- [ ] 标题是否 ≤ 10 字？
+- [ ] highlight 是否每条 ≤ 15 字、无递进关系？
+- [ ] tag 是否每条 ≤ 6 字？
+- [ ] timeline 的 event 是否 3-5 字短描述（不是完整句子）？
