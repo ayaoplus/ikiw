@@ -1,6 +1,6 @@
 # 视觉卡片：竖版长图（Portrait）
 
-固定宽度 750px、高度自适应的竖向长图。**用于把一篇文章/笔记的核心观点凝练成一张可分享的卡片**——只讲核心，不讲完整骨架。
+固定宽度 1080px、高度自适应的竖向长图。**用于把一篇文章/笔记的核心观点凝练成一张可分享的卡片**——只讲核心，不讲完整骨架。
 
 > 不是用来宣传活动/产品（那是 `poster` 插件），也不是用来呈现完整方法论结构（那是 `structure-map` 插件）。
 
@@ -67,9 +67,9 @@ footer:
 
 | 项 | 约束 |
 |----|------|
-| 画布宽度 | `body { width: 750px; margin: 0 auto; }` 固定 750px 居中 |
+| 画布宽度 | `body { width: 1080px; margin: 0 auto; }` 固定 1080px 居中 |
 | 画布高度 | `body { height: auto; }`（或完全不设 height）——**由内容决定** |
-| 左右安全区 | `body { padding-left: 48px; padding-right: 48px; }` 所有内容必须落在 safe area 内 |
+| 左右安全区 | `body { padding-left: 64px; padding-right: 64px; }` 所有内容必须落在 safe area 内 |
 | 顶部 padding | `body { padding-top: 56px; }` |
 | 底部 padding | `body { padding-bottom: 56px; }` |
 | Hero padding | hero 本身 `padding-top ≥ 48px`，badge/source 到 h1 `≥ 24px`，h1 到 subtitle `≥ 16px` |
@@ -209,7 +209,7 @@ LLM 容易"自由发挥"换组件，下列禁止：
 
 ### 空间自查
 
-- [ ] body 是否固定宽度 750px 并居中？
+- [ ] body 是否固定宽度 1080px 并居中？
 - [ ] body 是否有 ≥ 40px 的左右 padding（safe area）？
 - [ ] hero 内的 source、h1、subtitle 是否都在 safe area 内（未贴边）？
 - [ ] key-point-item 列表是否在 safe area 内？

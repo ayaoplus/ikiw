@@ -1,6 +1,6 @@
 # 海报：竖版（Portrait）
 
-固定宽度 750px、高度自适应的竖向营销海报。**用于活动、产品、课程、发布会的宣传**——含品牌、卖点、价格、CTA 等营销字段。
+固定宽度 1080px、高度自适应的竖向营销海报。**用于活动、产品、课程、发布会的宣传**——含品牌、卖点、价格、CTA 等营销字段。
 
 > 不是视觉卡片（→ `visual-card`），不是结构图（→ `structure-map`）。海报的核心目的是**让读者看完之后产生行动**（报名、扫码、咨询、购买）。
 
@@ -116,9 +116,9 @@ footer:
 
 | 项 | 约束 |
 |----|------|
-| 画布宽度 | `body { width: 750px; margin: 0 auto; }` |
+| 画布宽度 | `body { width: 1080px; margin: 0 auto; }` |
 | 画布高度 | `body { height: auto; }`（或完全不设 height）——**由内容决定** |
-| 左右安全区 | `body { padding-left: 48px; padding-right: 48px; }` |
+| 左右安全区 | `body { padding-left: 64px; padding-right: 64px; }` |
 | 顶部 padding | `body { padding-top: 56px; }` |
 | 底部 padding | `body { padding-bottom: 56px; }` |
 | Hero padding | `.hero { padding-top: 48px; padding-bottom: 40px; }`（内部 padding，不是 body）或让 body padding 顶替 |
@@ -330,7 +330,7 @@ footer:
 
 ### 空间自查
 
-- [ ] body 是否固定宽度 750px 并居中？
+- [ ] body 是否固定宽度 1080px 并居中？
 - [ ] body 是否有 ≥ 40px 的左右 padding（safe area）？
 - [ ] hero、stats、features、audience、timeline、speakers、action 各区块是否都在 safe area 内（未贴边）？
 - [ ] stat-item、tag、timeline-item、speaker-item 等子元素是否在 safe area 内？

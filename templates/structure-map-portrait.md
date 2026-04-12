@@ -1,8 +1,8 @@
 # 结构图：竖版（Portrait）
 
-固定宽度 750px 的竖向长图，高度自适应。**完整覆盖一份结构复杂内容的所有重要节点**——方法论、教程、SKILL 文档、长文骨架、产品规范。
+固定宽度 1080px 的竖向长图，高度自适应。**完整覆盖一份结构复杂内容的所有重要节点**——方法论、教程、SKILL 文档、长文骨架、产品规范。
 
-> 与 visual-card 形态相同（750px 长图），但**目的不同**：visual-card 是浓缩到 5 个点（取舍式），structure-map 是覆盖全部节点（穷举式）。
+> 与 visual-card 形态相同（1080px 长图），但**目的不同**：visual-card 是浓缩到 5 个点（取舍式），structure-map 是覆盖全部节点（穷举式）。
 
 ---
 
@@ -145,9 +145,9 @@ H1: 卡兹克公众号长文写作
 
 | 项 | 约束 |
 |----|------|
-| 画布宽度 | `body { width: 750px; margin: 0 auto; }` |
+| 画布宽度 | `body { width: 1080px; margin: 0 auto; }` |
 | 画布高度 | `body { height: auto; }`（或完全不设 height）——**由内容决定** |
-| 左右安全区 | `body { padding-left: 48px; padding-right: 48px; }` |
+| 左右安全区 | `body { padding-left: 64px; padding-right: 64px; }` |
 | 顶部 padding | `body { padding-top: 56px; }` |
 | 底部 padding | `body { padding-bottom: 56px; }` |
 | Hero padding | hero 本身 `padding-top ≥ 48px`，source 到 h1 `≥ 24px`，h1 到 subtitle `≥ 16px` |
@@ -199,7 +199,7 @@ H1: 卡兹克公众号长文写作
 
 ## 空间自查
 
-- [ ] body 是否固定宽度 750px 并居中？
+- [ ] body 是否固定宽度 1080px 并居中？
 - [ ] body 是否有 ≥ 40px 的左右 padding？
 - [ ] 所有组件是否在 safe area 内（未贴边）？
 - [ ] 相邻 section 之间是否 ≥ 56px 垂直间距？
