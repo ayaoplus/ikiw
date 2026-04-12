@@ -173,12 +173,37 @@ ikiw/
 
 ### 官方插件
 
-| 插件 | 命令 | 说明 | 详细文档 |
-|------|------|------|----------|
-| <nobr>截图导出</nobr> | <nobr>`ikiw export`</nobr> | 将 HTML 导出为 PNG 长图或 PDF | [screenshot-export.md](plugins/screenshot-export.md) |
-| <nobr>海报生成</nobr> | <nobr>`ikiw poster`</nobr> | 从内容自动生成多风格海报 | [poster-generator.md](plugins/poster-generator.md) |
-| <nobr>风格写作</nobr> | <nobr>`ikiw write`</nobr> | 基于写作风格模板重写内容 | [style-writer.md](plugins/style-writer.md) |
-| <nobr>人物蒸馏</nobr> | <nobr>`ikiw distill`</nobr> | 从公众人物言论中蒸馏认知框架，生成可激活的思维 Skill | [distill.md](plugins/distill.md) |
+<table>
+  <thead>
+    <tr><th>插件</th><th>命令</th><th>说明</th><th>详细文档</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td nowrap>截图导出</td>
+      <td nowrap><code>ikiw export</code></td>
+      <td>将 HTML 导出为 PNG 长图或 PDF</td>
+      <td nowrap><a href="plugins/screenshot-export.md">screenshot-export.md</a></td>
+    </tr>
+    <tr>
+      <td nowrap>海报生成</td>
+      <td nowrap><code>ikiw poster</code></td>
+      <td>从内容自动生成多风格海报</td>
+      <td nowrap><a href="plugins/poster-generator.md">poster-generator.md</a></td>
+    </tr>
+    <tr>
+      <td nowrap>风格写作</td>
+      <td nowrap><code>ikiw write</code></td>
+      <td>基于写作风格模板重写内容</td>
+      <td nowrap><a href="plugins/style-writer.md">style-writer.md</a></td>
+    </tr>
+    <tr>
+      <td nowrap>人物蒸馏</td>
+      <td nowrap><code>ikiw distill</code></td>
+      <td>从公众人物言论中蒸馏认知框架，生成可激活的思维 Skill</td>
+      <td nowrap><a href="plugins/distill.md">distill.md</a></td>
+    </tr>
+  </tbody>
+</table>
 
 ### 自定义插件
 
