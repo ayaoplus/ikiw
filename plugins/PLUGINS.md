@@ -57,4 +57,5 @@ ikiw 的插件是一个 `.md` 文件，放到 `plugins/` 目录即可生效。ag
 - `screenshot-export.md` — 截图导出
 - `visual-card.md` — 视觉卡片生成
 - `poster.md` — 营销海报生成
+- `structure-map.md` — 知识结构图生成
 - `style-writer.md` — 风格写作

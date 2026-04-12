@@ -17,7 +17,7 @@
 <p align="center">
   没有任何代码、数据库或 RAG，让 agent 快速构建和读取你的 AI 知识库<br>
   把所有文章一股脑扔进目录即可，这个 skill 会自动帮你整理、维护、分析、输出<br>
-  可扩展插件设计，在知识库基础上随意扩展各种能力：分析报告、二创写作、视觉卡片、人物蒸馏……
+  可扩展插件设计，在知识库基础上随意扩展各种能力：分析报告、二创写作、视觉卡片与海报、思想蒸馏……
 </p>
 
 <p align="center">
@@ -37,8 +37,9 @@
 **AI 时代的个人知识库应该如何构建？**
 
 - 知识内容不再是人来定期维护了，效率低又不准确。应该由**AI自动来维护、分类、分析。**
-- 知识库维度不再应该简单的标签化，而是可以**无限扩展的**。既可以让AI帮我总结“某个人的创业方法论是什么？”，又可以让AI帮总结“YouTube上最近最热门的创业项目是什么？”
+- 知识库维度不再应该简单的标签化，而是可以**无限扩展的**。
 - **足够简单优雅，** 不要随时写复杂的代码来处理，也不要臃肿的RAG。对于大部分人来说，知识库文章不会超过10w篇，完全可以使用简单的逻辑来管理。
+- 每个人都**有个性化定制的空间**，可以按自己的习惯和喜好来扩展自定义功能。
 
 <br>
 
@@ -188,6 +189,11 @@ ikiw/
       <td nowrap><a href="plugins/poster.md">poster.md</a></td>
     </tr>
     <tr>
+      <td nowrap>结构图</td>
+      <td>把方法论/SKILL/长文完整可视化为知识结构图（覆盖所有节点）</td>
+      <td nowrap><a href="plugins/structure-map.md">structure-map.md</a></td>
+    </tr>
+    <tr>
       <td nowrap>风格写作</td>
       <td>基于写作风格模板重写内容</td>
       <td nowrap><a href="plugins/style-writer.md">style-writer.md</a></td>
@@ -212,8 +218,8 @@ ikiw/
 
 | 目录 | 内容 | 被谁引用 |
 |------|------|----------|
-| `designs/` | 33 个视觉样式（design-md） | screenshot-export、visual-card、poster |
-| `templates/` | 视觉卡片 / 海报版式模板 | visual-card、poster |
+| `designs/` | 33 个视觉样式（design-md） | screenshot-export、visual-card、poster、structure-map |
+| `templates/` | 视觉卡片 / 海报 / 结构图版式模板（含组件库） | visual-card、poster、structure-map |
 | `styles/` | 写作风格模板 | style-writer |
 
 ### 三层输出
