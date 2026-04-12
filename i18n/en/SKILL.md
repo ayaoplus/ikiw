@@ -15,8 +15,9 @@ ikiw wiki "topic"                   Generate a wiki page
 ikiw wiki "topic" --style <style>   Generate wiki with a writing style applied
 ikiw wiki "topic" --design <design> Generate wiki as styled HTML with a visual design
 ikiw write "topic" --style <style>  Write in a style based on knowledge base content
-ikiw export "topic" --format png    Export wiki page as a full-page screenshot
+ikiw export "topic" --format png    Export wiki page as a full-page screenshot (default 3x HD)
 ikiw export "topic" --format pdf    Export wiki page as PDF
+ikiw export "topic" --format png --width 520 --dpr 3   Custom viewport width and pixel density
 ikiw ingest                         Process new articles (generate summaries, check wiki updates)
 ikiw setup-summary                  Summary assistant, define summary prompt via conversation
 ```
@@ -137,17 +138,43 @@ Export wiki pages or styled HTML as images or PDF.
 **Process:**
 1. Confirm the content to export (wiki page, styled HTML)
 2. If only markdown is available, first generate styled HTML with the specified design
-3. Use Playwright for full-page screenshots:
-   - PNG full-page image: `npx playwright screenshot --full-page input.html output.png`
-   - PDF: via Playwright's PDF export functionality
-4. Save output files to the knowledge base's `wiki/` directory
+3. Use Playwright for screenshots (via Node API with deviceScaleFactor)
+4. Save output files to the knowledge base's `wiki/` directory or a user-specified path
 
-**Supported formats:**
-- `png` — Full-page screenshot, ideal for sharing on social media
-- `pdf` — Suitable for printing and archiving
+**Default parameters:**
+- `--width 520` — Viewport width, compact content without excess background
+- `--dpr 3` — 3x pixel density (actual output 1560px wide), HD suitable for social media and printing
+- `--format png` — Default output PNG
+
+**All parameters:**
+
+| Parameter | Default | Description |
+|-----------|---------|-------------|
+| `--format` | `png` | Output format: `png` or `pdf` |
+| `--width` | `520` | Viewport width (px), content area width without excess background |
+| `--dpr` | `3` | Device pixel ratio, 1 = standard, 2 = retina, 3 = ultra HD |
+| `--output` | Knowledge base `wiki/` directory | Output file path |
+
+**Screenshot implementation:**
+
+Uses the Playwright Node API, core code:
+
+```javascript
+const context = await browser.newContext({
+  viewport: { width: WIDTH, height: 800 },
+  deviceScaleFactor: DPR
+});
+const page = await context.newPage();
+await page.goto(url);
+await page.screenshot({ path: output, fullPage: true });
+```
+
+The agent generates and executes the screenshot script based on the parameters.
 
 **Usage examples:**
-- `ikiw export "topic" --format png` — Export an existing wiki page as a full-page image
+- `ikiw export "topic" --format png` — Default 520px wide, 3x HD export
+- `ikiw export "topic" --width 375 --dpr 3` — Mobile width export
+- `ikiw export "topic" --width 1200 --dpr 2` — Widescreen export
 - `ikiw wiki "topic" --design notion` then `ikiw export "topic" --format png` — Generate a styled page first, then export
 
 ### 7. Ingesting New Articles

@@ -15,8 +15,9 @@ ikiw wiki "テーマ"                   wiki ページを生成
 ikiw wiki "テーマ" --style <style>   wiki を生成しライティングスタイルを適用
 ikiw wiki "テーマ" --design <design> wiki を生成しビジュアルスタイルで HTML 出力
 ikiw write "テーマ" --style <style>  ナレッジベースの内容に基づきスタイルライティング
-ikiw export "テーマ" --format png    wiki ページをフルページスクリーンショットとしてエクスポート
+ikiw export "テーマ" --format png    wiki ページをフルページスクリーンショットとしてエクスポート（デフォルト 3x 高画質）
 ikiw export "テーマ" --format pdf    wiki ページを PDF としてエクスポート
+ikiw export "テーマ" --format png --width 520 --dpr 3   ビューポート幅とピクセル密度をカスタマイズ
 ikiw ingest                         新規記事を処理（要約生成、wiki 更新チェック）
 ikiw setup-summary                  要約アシスタント、対話で要約 prompt を定義
 ```
@@ -137,17 +138,43 @@ wiki ページまたは styled HTML を画像や PDF としてエクスポート
 **フロー：**
 1. エクスポートするコンテンツを確認する（wiki ページ、styled HTML）
 2. markdown のみの場合、まず指定された design で styled HTML を生成する
-3. Playwright を使用してフルページスクリーンショットでエクスポートする：
-   - PNG フルページ画像：`npx playwright screenshot --full-page input.html output.png`
-   - PDF：Playwright の PDF エクスポート機能を使用
-4. 出力ファイルをナレッジベースの `wiki/` ディレクトリに保存する
+3. Playwright でスクリーンショットをエクスポートする（Node API で deviceScaleFactor を設定）
+4. 出力ファイルをナレッジベースの `wiki/` ディレクトリまたはユーザー指定のパスに保存する
 
-**対応フォーマット：**
-- `png` — フルページスクリーンショット、SNS での共有に最適
-- `pdf` — 印刷やアーカイブに適している
+**デフォルトパラメータ：**
+- `--width 520` — ビューポート幅、余分な背景なしでコンテンツをコンパクトに表示
+- `--dpr 3` — 3倍ピクセル密度（実際の出力幅 1560px）、SNS や印刷に適した高画質
+- `--format png` — デフォルト出力は PNG
+
+**全パラメータ：**
+
+| パラメータ | デフォルト値 | 説明 |
+|------------|-------------|------|
+| `--format` | `png` | 出力フォーマット：`png` または `pdf` |
+| `--width` | `520` | ビューポート幅（px）、余分な背景を含まないコンテンツ領域の幅 |
+| `--dpr` | `3` | デバイスピクセル比、1 = 標準、2 = レティナ、3 = 超高画質 |
+| `--output` | ナレッジベースの `wiki/` ディレクトリ | 出力ファイルパス |
+
+**スクリーンショットの実装：**
+
+Playwright Node API を使用。コアコード：
+
+```javascript
+const context = await browser.newContext({
+  viewport: { width: WIDTH, height: 800 },
+  deviceScaleFactor: DPR
+});
+const page = await context.newPage();
+await page.goto(url);
+await page.screenshot({ path: output, fullPage: true });
+```
+
+agent がパラメータに基づきスクリーンショットスクリプトを自動生成して実行する。
 
 **組み合わせ使用例：**
-- `ikiw export "テーマ" --format png` — 既存の wiki ページをフルページ画像としてエクスポート
+- `ikiw export "テーマ" --format png` — デフォルト 520px 幅、3x 高画質でエクスポート
+- `ikiw export "テーマ" --width 375 --dpr 3` — モバイル幅でエクスポート
+- `ikiw export "テーマ" --width 1200 --dpr 2` — ワイドスクリーンでエクスポート
 - `ikiw wiki "テーマ" --design notion` の後に `ikiw export "テーマ" --format png` — まずスタイルページを生成してからエクスポート
 
 ### 7. 新規記事の登録

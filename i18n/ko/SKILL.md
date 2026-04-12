@@ -15,8 +15,9 @@ ikiw wiki "주제"                     wiki 페이지 생성
 ikiw wiki "주제" --style <style>     wiki 생성 후 글쓰기 스타일 적용
 ikiw wiki "주제" --design <design>   wiki 생성 후 비주얼 스타일로 HTML 출력
 ikiw write "주제" --style <style>    지식 베이스 내용 기반 스타일 글쓰기
-ikiw export "주제" --format png      wiki 페이지를 전체 스크린샷으로 내보내기
+ikiw export "주제" --format png      wiki 페이지를 전체 스크린샷으로 내보내기 (기본 3x 고화질)
 ikiw export "주제" --format pdf      wiki 페이지를 PDF로 내보내기
+ikiw export "주제" --format png --width 520 --dpr 3   뷰포트 너비와 픽셀 밀도 사용자 지정
 ikiw ingest                         새 글 처리 (요약 생성, wiki 업데이트 확인)
 ikiw setup-summary                  요약 어시스턴트, 대화를 통해 요약 prompt 정의
 ```
@@ -137,17 +138,43 @@ wiki 페이지 또는 styled HTML을 이미지나 PDF로 내보냅니다.
 **흐름:**
 1. 내보낼 콘텐츠 확인 (wiki 페이지, styled HTML)
 2. markdown만 있는 경우, 먼저 지정된 design으로 styled HTML을 생성
-3. Playwright를 사용하여 전체 페이지 스크린샷으로 내보내기:
-   - PNG 전체 길이 이미지: `npx playwright screenshot --full-page input.html output.png`
-   - PDF: Playwright의 PDF 내보내기 기능을 통해 생성
-4. 출력 파일을 지식 베이스의 `wiki/` 디렉토리에 저장
+3. Playwright를 사용하여 스크린샷으로 내보내기 (Node API의 deviceScaleFactor 설정)
+4. 출력 파일을 지식 베이스의 `wiki/` 디렉토리 또는 사용자가 지정한 경로에 저장
 
-**지원 형식:**
-- `png` — 전체 페이지 스크린샷, 소셜 미디어 공유에 적합
-- `pdf` — 인쇄 및 보관에 적합
+**기본 매개변수:**
+- `--width 520` — 뷰포트 너비, 불필요한 배경 없이 콘텐츠를 컴팩트하게 표시
+- `--dpr 3` — 3배 픽셀 밀도 (실제 출력 1560px 너비), 소셜 미디어 및 인쇄에 적합한 고화질
+- `--format png` — 기본 출력 PNG
+
+**모든 매개변수:**
+
+| 매개변수 | 기본값 | 설명 |
+|----------|--------|------|
+| `--format` | `png` | 출력 형식: `png` 또는 `pdf` |
+| `--width` | `520` | 뷰포트 너비 (px), 불필요한 배경 없는 콘텐츠 영역 너비 |
+| `--dpr` | `3` | 디바이스 픽셀 비율, 1 = 표준, 2 = 레티나, 3 = 초고화질 |
+| `--output` | 지식 베이스 `wiki/` 디렉토리 | 출력 파일 경로 |
+
+**스크린샷 구현:**
+
+Playwright Node API를 사용하며, 핵심 코드:
+
+```javascript
+const context = await browser.newContext({
+  viewport: { width: WIDTH, height: 800 },
+  deviceScaleFactor: DPR
+});
+const page = await context.newPage();
+await page.goto(url);
+await page.screenshot({ path: output, fullPage: true });
+```
+
+agent가 매개변수에 따라 스크린샷 스크립트를 자동으로 생성하여 실행합니다.
 
 **조합 사용 예시:**
-- `ikiw export "주제" --format png` — 기존 wiki 페이지를 전체 길이 이미지로 내보내기
+- `ikiw export "주제" --format png` — 기본 520px 너비, 3x 고화질로 내보내기
+- `ikiw export "주제" --width 375 --dpr 3` — 모바일 너비로 내보내기
+- `ikiw export "주제" --width 1200 --dpr 2` — 와이드스크린으로 내보내기
 - `ikiw wiki "주제" --design notion` 후 `ikiw export "주제" --format png` — 먼저 스타일 페이지를 생성한 후 내보내기
 
 ### 7. 새 글 입고
