@@ -157,19 +157,38 @@ my-wiki/
 
 **截图实现：**
 
-使用 Playwright Node API，核心代码：
+使用 Playwright Node API + file:// 协议，直接读取本地 HTML 文件，不需要启动 HTTP 服务器。
+
+核心代码：
 
 ```javascript
+import { chromium } from 'playwright';
+const browser = await chromium.launch();
 const context = await browser.newContext({
   viewport: { width: WIDTH, height: 800 },
   deviceScaleFactor: DPR
 });
 const page = await context.newPage();
-await page.goto(url);
+await page.goto('file:///absolute/path/to/page.html', {
+  waitUntil: 'domcontentloaded',
+  timeout: 60000
+});
+await page.waitForTimeout(2000); // 等待字体加载
 await page.screenshot({ path: output, fullPage: true });
+await browser.close();
 ```
 
 agent 根据参数自行生成并执行截图脚本。
+
+**环境降级策略：**
+
+agent 按以下优先级自动处理，确保用户始终能得到结果：
+
+1. **Playwright Node API 可用** → 直接用 file:// 截图（最佳体验）
+2. **Playwright 未安装** → 自动执行 `npm install playwright && npx playwright install chromium`，安装后重试
+3. **安装失败或环境不支持** → 输出 HTML 文件，提示用户："HTML 已生成，请在浏览器中打开。如需导出图片，可安装 Playwright：`npm install playwright && npx playwright install chromium`"
+
+原则：永远给用户一个结果，最差情况也是一个能打开的 HTML 文件。
 
 **组合使用示例：**
 - `ikiw export "小红书带货" --format png` — 默认 520px 宽、3x 高清导出
