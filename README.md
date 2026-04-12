@@ -14,14 +14,20 @@
 
 <br>
 
-<p align="center">
-  <strong>极简知识库skill，不依赖任何代码、数据库或RAG，让agent快速构建和读取你的AI知识库。</strong>
-</p>
+<div align="center">
+<table>
+<tr>
+<td align="left">
 
-<p align="center">
-  把所有文章一股脑扔进目录，这个skills 会自动替你整理、维护、分析、输出<br>
-  可扩展插件设计，在知识库基础上随意扩展各种能力：分析报告、二创写作、格式化卡片、海报……
-</p>
+<strong>极简知识库 skill，不依赖任何代码、数据库或 RAG，让 agent 快速构建和读取你的 AI 知识库。</strong>
+
+把所有文章一股脑扔进目录，这个 skill 会自动替你整理、维护、分析、输出<br>
+可扩展插件设计，在知识库基础上随意扩展各种能力：分析报告、二创写作、格式化卡片、海报……
+
+</td>
+</tr>
+</table>
+</div>
 
 <p align="center">
   <a href="#设计哲学">设计哲学</a> ·
