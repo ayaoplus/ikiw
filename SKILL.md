@@ -67,6 +67,7 @@ agent 读取 SKILL.md 后，扫描 `plugins/` 目录加载可用插件。
 | 截图导出 | `plugins/screenshot-export.md` | 将 HTML 页面导出为 PNG/PDF 长图 |
 | 海报生成 | `plugins/poster-generator.md` | 从内容自动生成多风格海报 |
 | 风格写作 | `plugins/style-writer.md` | 基于写作风格模板重写内容 |
+| 人物蒸馏 | `plugins/distill.md` | 从公众人物言论中蒸馏认知框架，生成思维 Skill |
 
 ### 自定义插件
 
