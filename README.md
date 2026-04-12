@@ -2,13 +2,12 @@
   <img src="assets/logo.png" alt="ikiw" width="200">
 </p>
 
-# ikiw — I Keep It Wise
+# ikiw
 
-> *Wiki, reversed.*
+> *Wiki mirrored, Wisdom discovered.*
 
-一个基于 LLM 的个人知识库 skill。不依赖任何框架、数据库或向量检索，纯 prompt 驱动，任何能读写文件的 LLM agent 都能使用。
-
-传统 wiki 是你写知识给别人看。ikiw 反过来——LLM 替你整理、维护、综合知识，你只管提问。
+**极简skill，不依赖任何代码、数据库或向量检索，快速搭建基于agent的自动化知识库。**
+**插件化设计，用提示词就可以无限扩展知识库能力，无侵入式设计，优雅简洁。**
 
 ## 核心特色
 
@@ -29,15 +28,14 @@
 - 万篇以内：`summaries.md` 一次性读完，无需额外基础设施
 - 超过万篇：接入向量检索做粗筛，摘要数据可直接用于 embedding
 
-## 知识库结构
+## 快速开始
 
-```
-my-wiki/
-├── raw/              # 原始文章，只读
-├── summaries.md      # 摘要索引，系统的核心
-├── wiki/             # 按需生成的知识页面
-└── SCHEMA.md         # 知识库配置（自定义 prompt）
-```
+1. 把本仓库作为 skill 加载到你的 LLM agent（Claude Code、Codex、OpenCode 等）
+2. 告诉 agent："帮我建一个知识库"
+3. agent 会通过对话了解你的文章类型和关注点，自动生成 SCHEMA.md
+4. 把文章放入 `raw/` 目录
+5. 告诉 agent："帮我生成摘要"
+6. 开始查询
 
 ## 核心能力
 
@@ -86,15 +84,6 @@ my-wiki/
 1. **内容层** — SCHEMA.md 的 prompt 决定写什么
 2. **风格层** — `styles/` 决定怎么写
 3. **视觉层** — `designs/` 决定怎么呈现
-
-## 快速开始
-
-1. 把本仓库作为 skill 加载到你的 LLM agent（Claude Code、Codex、OpenCode 等）
-2. 告诉 agent："帮我建一个知识库"
-3. agent 会通过对话了解你的文章类型和关注点，自动生成 SCHEMA.md
-4. 把文章放入 `raw/` 目录
-5. 告诉 agent："帮我生成摘要"
-6. 开始查询
 
 ## 致谢
 
