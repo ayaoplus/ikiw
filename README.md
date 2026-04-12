@@ -10,13 +10,24 @@
 
 传统 wiki 是你写知识给别人看。ikiw 反过来——LLM 替你整理、维护、综合知识，你只管提问。
 
-灵感来自 [Karpathy 的 LLM Wiki 模式](https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f)。
-
-## 核心思路
+## 核心特色
 
 把文章扔进一个目录，LLM 给每篇生成一段摘要，汇总到一个索引文件。查询时 LLM 读索引定位文章，读原文综合回答。就这么简单。
 
 不打标签、不做分类、不建数据库。摘要本身就是最立体的"标签"。
+
+**设计原则：**
+
+- **不写代码** — 整个系统是 prompt 组合，不是程序
+- **不碰原文** — `raw/` 目录只读
+- **不提前生成** — wiki 按需创建，不浪费
+- **不绑平台** — 任何能读写文件的 LLM agent 都能用
+- **插件式扩展** — 核心精简，能力通过插件动态增长
+
+**规模边界：**
+
+- 万篇以内：`summaries.md` 一次性读完，无需额外基础设施
+- 超过万篇：接入向量检索做粗筛，摘要数据可直接用于 embedding
 
 ## 知识库结构
 
@@ -52,6 +63,7 @@ my-wiki/
 | 截图导出 | `screenshot-export.md` | `ikiw export` | 将 HTML 导出为 PNG 长图或 PDF |
 | 海报生成 | `poster-generator.md` | `ikiw poster` | 从内容自动生成多风格海报 |
 | 风格写作 | `style-writer.md` | `ikiw write` | 基于写作风格模板重写内容 |
+| 人物蒸馏 | `distill.md` | `ikiw distill` | 从公众人物言论中蒸馏认知框架，生成可激活的思维 Skill |
 
 ### 自定义插件
 
@@ -75,24 +87,6 @@ my-wiki/
 2. **风格层** — `styles/` 决定怎么写
 3. **视觉层** — `designs/` 决定怎么呈现
 
-## 项目结构
-
-```
-ikiw/
-├── SKILL.md              # 核心 skill 定义
-├── SCHEMA.template.md    # 知识库配置模板
-├── plugins/              # 插件目录
-│   ├── PLUGINS.md        # 插件开发约定
-│   ├── screenshot-export.md
-│   ├── poster-generator.md
-│   └── style-writer.md
-├── designs/              # 视觉样式（33 个 design-md）
-├── styles/               # 写作风格模板
-├── templates/            # 结构化模板
-│   └── poster.md
-└── assets/               # 静态资源
-```
-
 ## 快速开始
 
 1. 把本仓库作为 skill 加载到你的 LLM agent（Claude Code、Codex、OpenCode 等）
@@ -102,29 +96,8 @@ ikiw/
 5. 告诉 agent："帮我生成摘要"
 6. 开始查询
 
-## 规模
-
-- 万篇以内：summaries.md 一次性读完，无需额外基础设施
-- 超过万篇：接入向量检索做粗筛，摘要数据可直接用于 embedding
-
-## 设计原则
-
-- **不写代码** — 整个系统是 prompt 组合，不是程序
-- **不碰原文** — raw/ 目录只读
-- **不提前生成** — wiki 按需创建，不浪费
-- **不绑平台** — 任何能读写文件的 LLM agent 都能用
-- **插件式扩展** — 核心精简，能力通过插件动态增长
-
-## 添加视觉样式
-
-```bash
-npx getdesign@latest add <style-name>
-# 将生成的 DESIGN.md 重命名后放入 designs/ 目录
-```
-
-60+ 可用样式：https://github.com/VoltAgent/awesome-design-md
-
 ## 致谢
 
 - [Andrej Karpathy](https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f) — LLM Wiki 模式
+- [nuwa-skill](https://github.com/alchaincyf/nuwa-skill) — 人物蒸馏方法论
 - [VoltAgent/awesome-design-md](https://github.com/VoltAgent/awesome-design-md) — 视觉样式库
