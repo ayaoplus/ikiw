@@ -133,6 +133,67 @@ footer:
 
 ---
 
+## 第二步补：文字约束（字数表 + CSS 换行规则）
+
+**CJK 文本自动换行规则无法用 CSS 优雅控制**——字多了就换行，硬压字号容器也走样。所以约束在两端：**入口端控字数 + 出口端控换行**。
+
+### 字数硬表（**提炼内容时必须遵守**）
+
+| 字段 | 中文字数 | 英文/数字字符 | 允许行数 |
+|---|---|---|---|
+| `badge` | ≤ 10 字 | ≤ 24 字符 | 1 行 |
+| `h1`（title） | ≤ 10 字 | ≤ 20 字符 | ≤ 2 行 |
+| `subtitle` | ≤ 30 字 | ≤ 60 字符 | ≤ 2 行 |
+| `stat-value` | ≤ 4 字 | ≤ 6 字符（如 `21天`、`¥499`） | **1 行** |
+| `stat-label` | ≤ 8 字 | ≤ 16 字符 | **1 行** |
+| `section-header` | ≤ 8 字 | ≤ 20 字符 | 1 行 |
+| `section-intro` | ≤ 40 字 | ≤ 80 字符 | ≤ 2 行 |
+| `feature-item` | ≤ 18 字 | — | **1 行** |
+| `tag` | ≤ 6 字 | ≤ 12 字符 | **1 行** |
+| `timeline-date` | 固定格式 `MM.DD` 或 `MM月DD日` | — | **1 行** |
+| `timeline-event` | ≤ 12 字 | — | **1 行** |
+| `speaker-name` | ≤ 6 字 | — | **1 行** |
+| `speaker-title` | ≤ 20 字 | — | 1 行 |
+| `price-current` | ≤ 6 字符（含单位，如 `¥499`） | — | **1 行** |
+| `price-original` | ≤ 8 字符 | — | **1 行** |
+| `price-note` | ≤ 15 字 | — | ≤ 2 行 |
+| `cta-text` | ≤ 6 字 | ≤ 12 字符 | **1 行** |
+| `cta-deadline` | ≤ 16 字 | — | **1 行** |
+
+> 换算基准：中文 1 字 ≈ 英文/数字 2 字符的可视宽度。混排字段按各自字符分别计。
+
+### CSS 硬约束（生成 HTML 时**必须**包含以下声明）
+
+**「1 行」字段**——全部加 `nowrap + ellipsis`，超出就省略号（不允许偷偷换行）：
+
+```css
+.badge, .stat-value, .stat-label, .section-header, .tag,
+.timeline-date, .timeline-event, .speaker-name,
+.price-current, .price-original, .cta-text, .cta-deadline,
+.footer-brand, .footer-meta {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+```
+
+**多行字段**——智能换行，避免孤字：
+
+```css
+.subtitle, .section-intro, .feature-item span, .price-note, .speaker-title {
+  word-break: break-word;
+  text-wrap: pretty;       /* Chrome 117+、Safari 17.5+ 生效，旧浏览器自动降级 */
+  overflow-wrap: break-word;
+}
+```
+
+### 原则
+
+**字数约束 > 容器约束 > 视觉约束**。宁可 LLM 回去缩字 3 次，也不要加宽容器或缩小字号兜底。**出现 `…` 省略号 = 上游字数超限的警报**，必须回到第一步内容提炼重写。
+
+---
+
 ## 第三步：HTML 骨架
 
 按以下顺序组装区块。每个区块如果数据缺失就**整段省略**。design-md 只控制 CSS 样式，不允许改变结构。
@@ -344,6 +405,14 @@ footer:
 - [ ] price-current 是否够大（≥ 48px）？是否有划线原价制造 anchor 效应？
 - [ ] cta-text 是否是明确的行动指令（"扫码报名""立即购买"），而不是模糊词（"了解更多""查看详情"）？
 - [ ] 是否包含至少一种紧迫感元素（deadline / 限定名额 / 早鸟价说明）？
+
+### 换行自查（字数约束验证）
+
+- [ ] 每个 `stat-value / stat-label / tag / timeline-date / timeline-event / cta-text / price-current / badge` 是否**严格单行**（实际渲染高度 ≈ 单行行高）？
+- [ ] 有没有 `…` 省略号出现？如有，说明上游字数超限 → **回到"第一步：内容提炼"重写**（不要加宽容器）
+- [ ] feature-item 是否每条都在 1 行内完成（≤ 18 字）？
+- [ ] h1 是否不超过 2 行？
+- [ ] 所有「1 行」字段的 CSS 是否都声明了 `white-space: nowrap; overflow: hidden; text-overflow: ellipsis`？
 
 ### 风格自查（对照 design-md）
 

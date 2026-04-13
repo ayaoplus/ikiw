@@ -83,6 +83,48 @@ footer:
 
 ---
 
+## 第二步补：文字约束（字数表 + CSS 换行规则）
+
+CJK 文本换行无法用 CSS 优雅控制，约束在**入口端控字数 + 出口端控换行**两端。
+
+### 字数硬表
+
+| 字段 | 中文字数 | 允许行数 |
+|---|---|---|
+| `source` | ≤ 12 字 | **1 行** |
+| `h1`（title） | ≤ 10 字 | ≤ 2 行 |
+| `subtitle` | ≤ 30 字 | ≤ 2 行 |
+| `section-overline` | ≤ 20 字符（多为英文） | **1 行** |
+| `section-header` | ≤ 8 字 | **1 行** |
+| `section-intro` | ≤ 40 字 | ≤ 2 行 |
+| `key-point-item` | ≤ 18 字 | **1 行**（强制） |
+| `tag` | ≤ 6 字 | **1 行** |
+| `footer-source` | ≤ 20 字 | **1 行** |
+| `footer-link` | ≤ 40 字符 | **1 行** |
+
+### CSS 硬约束
+
+```css
+.source, .section-overline, .section-header, .tag,
+.footer-source, .footer-link {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+.subtitle, .section-intro, .key-point-item span {
+  word-break: break-word;
+  text-wrap: pretty;
+  overflow-wrap: break-word;
+}
+```
+
+### 原则
+
+**字数约束 > 容器约束**。出现 `…` 省略号 = 上游字数超限 → 回"第一步：内容提炼"缩字。
+
+---
+
 ## 第三步：HTML 骨架
 
 所有竖版卡片统一使用以下 HTML 结构。design-md 只控制 CSS 样式，**不允许改变结构**。
@@ -223,6 +265,14 @@ LLM 容易"自由发挥"换组件，下列禁止：
 - [ ] 读 design-md 第 7 节 "Do's and Don'ts"，逐条对照本次输出是否违反
 - [ ] 读 design-md 第 1 节 "Key Characteristics"，确认本次输出是否复现了该风格的"身份标志"
 - [ ] 例：huasheng 必须有 §01 §02 章节编号、3px 橙色顶分隔线、weight 900 主标题、零渐变；notion 必须克制无重阴影；ferrari 必须深色 hero
+
+### 换行自查（字数约束验证）
+
+- [ ] `source / tag / section-header / footer-source / footer-link` 是否严格单行？
+- [ ] 有没有 `…` 省略号出现？如有 → 回到提炼层缩字
+- [ ] `key-point-item` 是否每条 1 行内完成（≤ 18 字）？
+- [ ] h1 是否 ≤ 2 行？
+- [ ] 所有「1 行」字段的 CSS 是否都声明了 `white-space: nowrap; overflow: hidden; text-overflow: ellipsis`？
 
 ### 内容自查
 

@@ -101,6 +101,57 @@ footer:
 
 ---
 
+## 第二步补：文字约束（字数表 + CSS 换行规则）
+
+横版空间更紧，字数约束比竖版更严。
+
+### 字数硬表
+
+| 字段 | 中文字数 | 允许行数 |
+|---|---|---|
+| `badge` | ≤ 10 字 | **1 行** |
+| `h1`（title） | ≤ 10 字 | ≤ 2 行 |
+| `subtitle` | ≤ 20 字 | ≤ 2 行 |
+| `tag` | ≤ 4 字 | **1 行** |
+| `section-header` | ≤ 8 字 | **1 行** |
+| `section-intro` | ≤ 30 字 | ≤ 2 行 |
+| `stat-value` | ≤ 4 字符 | **1 行** |
+| `stat-label` | ≤ 8 字 | **1 行** |
+| `feature-item` | **≤ 12 字** | **1 行** |
+| `timeline-date` | 固定格式 `MM.DD` | **1 行** |
+| `timeline-event` | ≤ 6 字 | **1 行** |
+| `price-current` | ≤ 6 字符 | **1 行** |
+| `price-original` | ≤ 8 字符 | **1 行** |
+| `cta-text` | ≤ 6 字 | **1 行** |
+| `cta-deadline` | ≤ 10 字 | **1 行** |
+| `hero-footer` | ≤ 30 字符 | **1 行** |
+| `footer-brand` | ≤ 16 字 | **1 行** |
+
+### CSS 硬约束
+
+```css
+.badge, .tag, .section-header, .stat-value, .stat-label,
+.feature-item, .timeline-date, .timeline-event,
+.price-current, .price-original, .cta-text, .cta-deadline,
+.hero-footer, .footer-brand, .footer-meta {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+.subtitle, .section-intro {
+  word-break: break-word;
+  text-wrap: pretty;
+  overflow-wrap: break-word;
+}
+```
+
+### 原则
+
+横版宽度有限，任何字段换行都可能破坏布局。**feature-item 在横版必须 1 行内完成**（这是与竖版最大的差异）。出现 `…` 必回提炼层缩字。
+
+---
+
 ## 第三步：HTML 骨架
 
 横版采用**两栏布局**：左 hero（占 4/12）+ 右内容栈（占 8/12，纵向铺满 stats / features / timeline / action）。
@@ -278,6 +329,12 @@ footer:
 - [ ] price-current 是否 ≥ 40px？是否有划线原价制造 anchor？
 - [ ] cta-text 是否是明确的行动指令（"扫码报名""立即购买"），而不是"了解更多"？
 - [ ] 是否包含至少一种紧迫感元素（deadline / 限定名额 / 早鸟价说明）？
+
+### 换行自查（字数约束验证）
+
+- [ ] 所有 `badge / tag / stat / timeline / cta / price / feature-item` 字段是否严格单行？（横版比竖版更严格，**feature-item 在横版必须 1 行**）
+- [ ] 有没有 `…` 省略号出现？如有 → 回到提炼层缩字
+- [ ] 所有「1 行」字段的 CSS 是否都声明了 `white-space: nowrap; overflow: hidden; text-overflow: ellipsis`？
 
 ### 风格自查（对照 design-md）
 

@@ -133,7 +133,7 @@ CSS 关键：
 
 ## 完整性 + 风格 + 内容自查
 
-完全复用 portrait 的自查清单。**横版特有补充**：
+完全复用 portrait 的自查清单（含换行自查）。**横版特有补充**：
 
 - [ ] 是否使用了 2 列网格布局（`grid-template-columns: 1fr 1fr`）？
 - [ ] hero / tldr / footer 是否全宽（横跨 2 列）？
@@ -141,3 +141,4 @@ CSS 关键：
 - [ ] 左右两列高度差是否 ≤ 100px？
 - [ ] 横版下是否使用了 `--depth overview`（不建议 full）？
 - [ ] 字号是否按横版规则缩小一档？
+- [ ] **横版列宽只有竖版的 45%**，所有单行字段的字数**再砍 30%**，避免省略号：principle-name ≤ 8 字、step-name ≤ 8 字、typology-name ≤ 8 字、warning-name ≤ 8 字、compare-col-title ≤ 6 字

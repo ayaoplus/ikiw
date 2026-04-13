@@ -91,6 +91,55 @@ footer:
 
 ---
 
+## 第二步补：文字约束（字数表 + CSS 换行规则）
+
+横版空间有限，字数约束比竖版更严。
+
+### 字数硬表
+
+| 字段 | 中文字数 | 允许行数 |
+|---|---|---|
+| `source` | ≤ 12 字 | **1 行** |
+| `h1`（title） | ≤ 10 字 | ≤ 2 行 |
+| `subtitle` | ≤ 25 字 | ≤ 2 行 |
+| `tag` | ≤ 4 字 | **1 行** |
+| `content-overline` / `section-overline` | ≤ 20 字符 | **1 行** |
+| `content-header` / `section-header` | ≤ 10 字 | **1 行** |
+| `section-intro` | ≤ 30 字 | ≤ 2 行 |
+| `key-point-item`（mode=key_points） | ≤ 12 字 | **1 行** |
+| `quote-text`（mode=quote） | ≤ 30 字 | ≤ 3 行 |
+| `quote-attribution` | ≤ 15 字 | **1 行** |
+| `stat-value`（mode=stats） | ≤ 4 字符 | **1 行** |
+| `stat-label` | ≤ 8 字 | **1 行** |
+| `compare-col-title`（mode=compare） | ≤ 8 字 | **1 行** |
+| `compare-item` | ≤ 15 字 | **1 行** |
+| `footer-source` | ≤ 20 字 | **1 行** |
+
+### CSS 硬约束
+
+```css
+.source, .tag, .content-overline, .content-header, .section-header,
+.key-point-item, .quote-attribution,
+.stat-value, .stat-label, .compare-col-title,
+.footer-source, .footer-meta {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+.subtitle, .section-intro, .quote-text, .compare-item {
+  word-break: break-word;
+  text-wrap: pretty;
+  overflow-wrap: break-word;
+}
+```
+
+### 原则
+
+横版一屏装下，任何字段多占一行都可能挤溢出。出现 `…` 省略号必回提炼层缩字。
+
+---
+
 ## 第三步：HTML 骨架
 
 横版采用**两栏布局**（左 hero / 右内容）作为默认结构。design-md 只控制 CSS，不允许改结构。
@@ -258,6 +307,13 @@ footer:
 - [ ] 读 design-md 第 7 节 "Do's and Don'ts"，逐条对照
 - [ ] 读 design-md 第 1 节 "Key Characteristics"，确认风格"身份标志"是否复现
 - [ ] 横版下 h1 字号是否足够大（≥ 56px）？
+
+### 换行自查（字数约束验证）
+
+- [ ] `source / tag / key-point-item / stat-value / stat-label / compare-col-title` 严格单行？
+- [ ] 有没有 `…` 省略号出现？如有 → 回到提炼层缩字
+- [ ] `quote-text` 是否 ≤ 3 行？`compare-item` 是否每条 1 行？
+- [ ] 所有「1 行」字段的 CSS 是否都声明了 `white-space: nowrap; overflow: hidden; text-overflow: ellipsis`？
 
 ### 内容自查
 

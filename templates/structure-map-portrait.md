@@ -214,6 +214,13 @@ H1: 卡兹克公众号长文写作
 - [ ] 各 section-overline 视觉是否一致？
 - [ ] §XX 编号是否完整且按顺序？
 
+## 换行自查（字数约束验证）
+
+- [ ] 参考 `structure-map-components.md` 顶部的「共享文字约束」，所有「1 行」字段的 CSS 是否都声明了 `white-space: nowrap; overflow: hidden; text-overflow: ellipsis`？
+- [ ] 每个组件的"单行字段"（principle-name / step-name / typology-name / warning-name / stat-value / tag 等）是否严格单行？
+- [ ] 有没有 `…` 省略号出现？如有 → 回到第三步内容提炼**缩字**，不要加宽容器
+- [ ] 段落字段（principle-desc / step-desc / typology-desc 等）行数是否合理（overview ≤ 2 行，full ≤ 5 行）？
+
 ## 内容自查
 
 - [ ] 每个组件遵循其 components.md 的字段约束（字数、条数、必填字段）？

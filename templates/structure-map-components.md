@@ -34,6 +34,46 @@ body { counter-reset: section; }
 /* 或者用 counter() 自动生成 */
 ```
 
+### 共享文字约束（所有组件必加）
+
+结构图组件多，文字换行问题最容易出现。生成 HTML 时**必须**在 CSS 里包含下面两组规则：
+
+**「1 行」字段**——全部加 `nowrap + ellipsis`：
+
+```css
+.source, .section-overline, .section-header,
+.principle-name,
+.step-number, .step-name,
+.typology-tag, .typology-name,
+.check-group-title,
+.warning-name,
+.quote-attribution,
+.compare-col-title,
+.stat-value, .stat-label,
+.phrase-group-title, .phrase-tag,
+.footer-source, .footer-meta {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+```
+
+**多行字段**——智能换行：
+
+```css
+.subtitle, .section-intro,
+.principle-desc, .step-desc, .typology-desc,
+.check-text, .warning-desc,
+.quote-text, .compare-item, .tldr-content {
+  word-break: break-word;
+  text-wrap: pretty;
+  overflow-wrap: break-word;
+}
+```
+
+**字数上限见每个组件的「强制约束」节。** 总体原则：**字数约束 > 容器约束 > 视觉约束**。出现 `…` 省略号 → 回提炼层缩字，**不要加宽容器**。
+
 ---
 
 ## 1. principles-list（并列原则/理念列表）
