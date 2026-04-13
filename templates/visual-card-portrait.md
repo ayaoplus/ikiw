@@ -129,6 +129,10 @@ CJK 文本换行无法用 CSS 优雅控制，约束在**入口端控字数 + 出
 
 所有竖版卡片统一使用以下 HTML 结构。design-md 只控制 CSS 样式，**不允许改变结构**。
 
+### 字体加载（必加）
+
+`<head>` **必须**包含 Google Fonts `<link>` 加载 design-md 指定的字体。详细规则 + 速查表：[`_font-loading.md`](./_font-loading.md)。专有字体用 Google Fonts 近似替代，中文内容加载 `Noto Sans SC`。
+
 ```html
 <!DOCTYPE html>
 <html lang="zh-CN">
@@ -273,6 +277,12 @@ LLM 容易"自由发挥"换组件，下列禁止：
 - [ ] `key-point-item` 是否每条 1 行内完成（≤ 18 字）？
 - [ ] h1 是否 ≤ 2 行？
 - [ ] 所有「1 行」字段的 CSS 是否都声明了 `white-space: nowrap; overflow: hidden; text-overflow: ellipsis`？
+
+### 字体加载自查
+
+- [ ] `<head>` 包含 Google Fonts `<link>`？字重覆盖 design-md 所有声明？
+- [ ] 中文加载了 `Noto Sans SC`？
+- [ ] 专有字体用了替代？
 
 ### 内容自查
 

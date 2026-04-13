@@ -198,6 +198,15 @@ footer:
 
 按以下顺序组装区块。每个区块如果数据缺失就**整段省略**。design-md 只控制 CSS 样式，不允许改变结构。
 
+### 字体加载（必加）
+
+`<head>` **必须**包含 Google Fonts `<link>` 加载 design-md 指定的字体。**不加载 = 字体静默回退 = 视觉偏离**。
+
+- 规则 + 33 个 design-md 的加载字符串速查：[`_font-loading.md`](./_font-loading.md)
+- 专有字体（Anthropic/SF Pro/Helvetica Neue 等）：**不要尝试加载 CDN**（会 404），用文档里的 Google Fonts 近似替代
+- 中文内容：必须加载 `Noto Sans SC`
+- 字重必须覆盖 design-md 声明的所有值（特别是 900 / 300 这种边缘值）
+
 ```html
 <!DOCTYPE html>
 <html lang="zh-CN">
@@ -413,6 +422,13 @@ footer:
 - [ ] feature-item 是否每条都在 1 行内完成（≤ 18 字）？
 - [ ] h1 是否不超过 2 行？
 - [ ] 所有「1 行」字段的 CSS 是否都声明了 `white-space: nowrap; overflow: hidden; text-overflow: ellipsis`？
+
+### 字体加载自查
+
+- [ ] `<head>` 包含 Google Fonts `<link>` 标签（见 [`_font-loading.md`](./_font-loading.md)）
+- [ ] 加载的字重覆盖 design-md 声明的所有字重
+- [ ] 中文内容加载了 `Noto Sans SC`
+- [ ] 没有尝试加载专有字体（Anthropic/SF Pro/Helvetica Neue/Circular 等），专有字体用了 Google Fonts 替代
 
 ### 风格自查（对照 design-md）
 

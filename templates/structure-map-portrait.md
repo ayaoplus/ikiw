@@ -221,6 +221,13 @@ H1: 卡兹克公众号长文写作
 - [ ] 有没有 `…` 省略号出现？如有 → 回到第三步内容提炼**缩字**，不要加宽容器
 - [ ] 段落字段（principle-desc / step-desc / typology-desc 等）行数是否合理（overview ≤ 2 行，full ≤ 5 行）？
 
+## 字体加载自查
+
+- [ ] HTML `<head>` 包含 Google Fonts `<link>` 标签（详见 [`_font-loading.md`](./_font-loading.md)）
+- [ ] 加载的字重覆盖 design-md 所有声明（特别是 weight 900 / 300）
+- [ ] 中文内容加载了 `Noto Sans SC`（或 serif 风格 design-md 用 `Noto Serif SC`）
+- [ ] 没有尝试加载 Anthropic / SF Pro / Helvetica Neue / Circular 等专有字体——用 Google Fonts 替代
+
 ## 内容自查
 
 - [ ] 每个组件遵循其 components.md 的字段约束（字数、条数、必填字段）？

@@ -74,6 +74,10 @@ body { counter-reset: section; }
 
 **字数上限见每个组件的「强制约束」节。** 总体原则：**字数约束 > 容器约束 > 视觉约束**。出现 `…` 省略号 → 回提炼层缩字，**不要加宽容器**。
 
+### 字体加载（所有结构图必加）
+
+HTML `<head>` 必须包含 Google Fonts `<link>` 加载 design-md 指定的字体。详细规则 + 33 个 design-md 的加载字符串速查：[`_font-loading.md`](./_font-loading.md)。专有字体用 Google Fonts 近似替代，中文内容加载 `Noto Sans SC`。
+
 ---
 
 ## 1. principles-list（并列原则/理念列表）

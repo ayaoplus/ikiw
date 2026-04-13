@@ -144,6 +144,10 @@ footer:
 
 横版采用**两栏布局**（左 hero / 右内容）作为默认结构。design-md 只控制 CSS，不允许改结构。
 
+### 字体加载（必加）
+
+`<head>` **必须**包含 Google Fonts `<link>` 加载 design-md 指定的字体。详细规则 + 速查表：[`_font-loading.md`](./_font-loading.md)。专有字体用 Google Fonts 近似替代，中文内容加载 `Noto Sans SC`。
+
 ```html
 <!DOCTYPE html>
 <html lang="zh-CN">
@@ -314,6 +318,12 @@ footer:
 - [ ] 有没有 `…` 省略号出现？如有 → 回到提炼层缩字
 - [ ] `quote-text` 是否 ≤ 3 行？`compare-item` 是否每条 1 行？
 - [ ] 所有「1 行」字段的 CSS 是否都声明了 `white-space: nowrap; overflow: hidden; text-overflow: ellipsis`？
+
+### 字体加载自查
+
+- [ ] `<head>` 包含 Google Fonts `<link>`？字重覆盖 design-md 所有声明？
+- [ ] 中文加载了 `Noto Sans SC`？
+- [ ] 专有字体用了替代？
 
 ### 内容自查
 

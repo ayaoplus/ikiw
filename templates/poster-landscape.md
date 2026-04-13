@@ -156,6 +156,10 @@ footer:
 
 横版采用**两栏布局**：左 hero（占 4/12）+ 右内容栈（占 8/12，纵向铺满 stats / features / timeline / action）。
 
+### 字体加载（必加）
+
+`<head>` **必须**包含 Google Fonts `<link>` 加载 design-md 指定的字体。详细规则 + 速查表：[`_font-loading.md`](./_font-loading.md)。专有字体用 Google Fonts 近似替代，中文内容加载 `Noto Sans SC`。
+
 ```html
 <!DOCTYPE html>
 <html lang="zh-CN">
@@ -335,6 +339,12 @@ footer:
 - [ ] 所有 `badge / tag / stat / timeline / cta / price / feature-item` 字段是否严格单行？（横版比竖版更严格，**feature-item 在横版必须 1 行**）
 - [ ] 有没有 `…` 省略号出现？如有 → 回到提炼层缩字
 - [ ] 所有「1 行」字段的 CSS 是否都声明了 `white-space: nowrap; overflow: hidden; text-overflow: ellipsis`？
+
+### 字体加载自查
+
+- [ ] `<head>` 包含 Google Fonts `<link>`？字重覆盖 design-md 所有声明？
+- [ ] 中文加载了 `Noto Sans SC`？
+- [ ] 专有字体用了替代？
 
 ### 风格自查（对照 design-md）
 
