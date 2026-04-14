@@ -1,28 +1,28 @@
-# Design System Inspired by Ayao (Ink Green Edition)
+# Design System Inspired by Ayao (Emerald Green Edition)
 
 ## 1. Visual Theme & Atmosphere
 
-Ayao's design system is a book rendered as a webpage — calm, spacious, and quietly authoritative. The entire experience is built on a pure white canvas (`#FFFFFF`) with a single accent color: Ink Green (`#14532D`), used with discipline as the sole chromatic element across the entire system. Where most design systems rely on multiple accent colors, Ayao commits to one — and that commitment creates an unmistakable identity.
+Ayao's design system is a book rendered as a webpage — crisp, spacious, and quietly technical. The entire experience is built on a pure white canvas (`#FFFFFF`) with a single accent color: Emerald Green (`#059669`), used with discipline as the sole chromatic element across the entire system. Where most design systems rely on multiple accent colors, Ayao commits to one — and that commitment creates an unmistakable identity.
 
 The typography is dual-stack: Noto Sans SC for Chinese text and Inter for Latin characters, with JetBrains Mono for code. Display headlines run at 36pt weight 900 (Black) with tight letter-spacing (-1px), creating dense, commanding title blocks. Body text breathes at 10.5pt with an unusually generous 1.8 line-height — closer to a printed book than a typical web page. This relaxed density is the signature feel: content never crowds itself.
 
-What makes Ayao distinctive is its radical restraint. No shadows anywhere (one micro-exception for QR codes). No gradients (one subtle cool gradient reserved for cover and back pages only). No rounded corners beyond 8px. The depth comes entirely from the interplay between the Ink Green accent, four tiers of gray text, and generous whitespace. Functional cards — tips (green), warnings (red), callouts (yellow) — provide semantic color, but the brand expression is always monochromatic ink green on white.
+What makes Ayao distinctive is its radical restraint. No shadows anywhere (one micro-exception for QR codes). No gradients (one subtle cool gradient reserved for cover and back pages only). No rounded corners beyond 8px. The depth comes entirely from the interplay between the Emerald Green accent, four tiers of gray text, and generous whitespace. Functional cards — tips (green), warnings (red), callouts (yellow) — provide semantic color, but the brand expression is always monochromatic emerald green on white.
 
 **Key Characteristics:**
-- Pure white canvas with Ink Green (`#14532D`) as the sole accent color
+- Pure white canvas with Emerald Green (`#059669`) as the sole accent color
 - Dual-stack typography: Noto Sans SC (Chinese) + Inter (Latin) + JetBrains Mono (code)
 - Book-grade spacing: 1.8 line-height, generous margins, A4-inspired proportions
 - Weight 900 (Black) for display titles — maximum density, maximum impact
-- 3px Ink Green section dividers as the primary structural element
-- Decorative cover lines: 80px ink green + 30px light green (`#86EFAC`) top-left corner
+- 3px Emerald Green section dividers as the primary structural element
+- Decorative cover lines: 80px emerald green + 30px bright mint (`#6EE7B7`) top-left corner
 - Zero shadows, zero gradients (except cover/back page cool gradient)
-- Section numbering with `§01` `§02` format in Inter font, Ink Green color
+- Section numbering with `§01` `§02` format in Inter font, Emerald Green color
 - Print-friendly: `page-break-inside: avoid` on all card components
 
 ## 2. Color Palette & Roles
 
 ### Primary
-- **Ink Green** (`#14532D`): The core and only accent color — used for section dividers, badges, step numbers, links, flow chart borders, and comparison headers. Deliberately deep and grounded.
+- **Emerald Green** (`#059669`): The core and only accent color — used for section dividers, badges, step numbers, links, flow chart borders, and comparison headers. Deliberately deep and grounded.
 - **Pure White** (`#FFFFFF`): Page background and content surface.
 - **Near Black** (`#1A1A1A`): Primary text color — close to pure black but slightly softened for comfortable reading.
 
@@ -33,19 +33,19 @@ What makes Ayao distinctive is its radical restraint. No shadows anywhere (one m
 - **Quaternary Text** (`#B0B0B0`): Copyright notices, back page footer — the absolute minimum presence.
 
 ### Surface & Background
-- **Cover Gradient**: `linear-gradient(135deg, #F5FBF5 0%, #EBF7EB 25%, #FFFFFF 100%)` — an extremely subtle cool green tint, used only on cover and back pages.
-- **Accent Light** (`#F0FDF4`): Light green tint for highlighted content blocks.
+- **Cover Gradient**: `linear-gradient(135deg, #F0FDFA 0%, #D1FAE5 25%, #FFFFFF 100%)` — an extremely subtle cool green tint, used only on cover and back pages.
+- **Accent Light** (`#ECFDF5`): Light green tint for highlighted content blocks.
 - **Code Background** (`#F5F5F0`): Warm-gray surface for code blocks and file trees.
 
 ### Semantic Colors
-- **Tip Green** (`#22C55E`): Left border for tip/advice cards. Background: `#F0FDF4`.
+- **Tip Green** (`#22C55E`): Left border for tip/advice cards. Background: `#ECFDF5`.
 - **Warning Red** (`#EF4444`): Left border for warning cards. Background: `#FEF2F2`.
 - **Highlight Yellow** (`#FDE68A`): Border for callout cards. Background: `#FFFBEB`.
 
 ### Borders
 - **Default Border** (`#E5E5E5`): Standard dividers, table borders, card borders.
-- **Section Line** (`#14532D`): 3px top border on section headings — the primary structural accent.
-- **Decorative Light Green** (`#86EFAC`): Secondary cover decoration line.
+- **Section Line** (`#059669`): 3px top border on section headings — the primary structural accent.
+- **Decorative Bright Mint** (`#6EE7B7`): Secondary cover decoration line.
 
 ## 3. Typography Rules
 
@@ -59,8 +59,8 @@ What makes Ayao distinctive is its radical restraint. No shadows anywhere (one m
 | Role | Font | Size | Weight | Line Height | Letter Spacing | Notes |
 |------|------|------|--------|-------------|----------------|-------|
 | Cover Title | Noto Sans SC | 36pt | 900 (Black) | 1.15 | -1px | Maximum impact, book-title density |
-| Section Heading (h2) | Noto Sans SC | 20pt | 700 | default | normal | 3px Ink Green top border |
-| Section Number | Inter | 18pt | 700 | default | normal | `§01` format, Ink Green color |
+| Section Heading (h2) | Noto Sans SC | 20pt | 700 | default | normal | 3px Emerald Green top border |
+| Section Number | Inter | 18pt | 700 | default | normal | `§01` format, Emerald Green color |
 | English Subtitle | Inter | 10pt | 400 italic | default | normal | Color: `#9CA3AF` |
 | Section Intro | Noto Sans SC | 11.5pt | 300 | default | normal | Color: `#6B6B6B` |
 | Sub-heading (h3) | Noto Sans SC | 13pt | 600 | default | normal | Optional English annotation at 9.5pt |
@@ -78,23 +78,23 @@ What makes Ayao distinctive is its radical restraint. No shadows anywhere (one m
 - **Weight 900 only for cover titles**: The heaviest weight in the system creates a singular moment of maximum density. All other headings use 600-700.
 - **1.8 body line-height is non-negotiable**: This generous spacing is the core of the book-grade reading experience. Do not compress it.
 - **Inter for all numbers and Latin**: Even within Chinese text, numbers and Latin characters should render in Inter for optical consistency.
-- **Section numbering in Inter**: The `§01` format uses Inter bold in Ink Green — creating a typographic anchor that ties structure to brand.
+- **Section numbering in Inter**: The `§01` format uses Inter bold in Emerald Green — creating a typographic anchor that ties structure to brand.
 
 ## 4. Component Stylings
 
 ### Section Dividers
-- 3px solid Ink Green (`#14532D`) top border on every h2
-- The primary visual rhythm element — every new section announces itself with an ink green line
+- 3px solid Emerald Green (`#059669`) top border on every h2
+- The primary visual rhythm element — every new section announces itself with an emerald green line
 
 ### Cover
 - Background: subtle cool green gradient
-- Top-left decoration: two horizontal lines (80px ink green + 30px light green)
-- Badge: Ink Green background, white text, 3px radius
-- Title `<em>` renders in Ink Green for emphasis
+- Top-left decoration: two horizontal lines (80px emerald green + 30px bright mint)
+- Badge: Emerald Green background, white text, 3px radius
+- Title `<em>` renders in Emerald Green for emphasis
 - Vertically centered layout
 
 ### Tip Cards
-- Background: `#F0FDF4` (light green)
+- Background: `#ECFDF5` (bright mint)
 - Left border: 4px solid `#22C55E`
 - Right border-radius: 8px
 - Auto-label via `::before` pseudo-element
@@ -109,16 +109,16 @@ What makes Ayao distinctive is its radical restraint. No shadows anywhere (one m
 - Background: `#FFFBEB` (light yellow)
 - Border: 1px solid `#FDE68A`
 - Border-radius: 8px (all sides)
-- `<strong>` text renders in Ink Green
+- `<strong>` text renders in Emerald Green
 
 ### Step Components
-- Number: 26px circle, Ink Green background, white text, Inter font
+- Number: 26px circle, Emerald Green background, white text, Inter font
 - Horizontal layout (flexbox) with 12px gap
 - `page-break-inside: avoid`
 
 ### Flow Charts
 - Horizontal centered layout with flex-wrap
-- Nodes: white background, 2px Ink Green border, 8px radius, Ink Green text
+- Nodes: white background, 2px Emerald Green border, 8px radius, Emerald Green text
 - Arrows: light gray `#D1D5DB`, 18pt, weight 300
 
 ### Comparison Boxes
@@ -170,17 +170,17 @@ What makes Ayao distinctive is its radical restraint. No shadows anywhere (one m
 | Flat (Level 0) | No shadow, no border | Page background, body text |
 | Contained (Level 1) | `1px solid #E5E5E5` | Tables, code blocks, file trees |
 | Semantic (Level 2) | `4px left border` in semantic color | Tip/warning cards |
-| Accent (Level 3) | `3px top border` in Ink Green | Section headings |
-| Structural (Level 4) | `2px solid #14532D` | Flow chart nodes, comparison boxes |
+| Accent (Level 3) | `3px top border` in Emerald Green | Section headings |
+| Structural (Level 4) | `2px solid #059669` | Flow chart nodes, comparison boxes |
 
 **Shadow Philosophy**: Ayao uses **zero shadows**. Depth is communicated entirely through borders, background color shifts, and whitespace. The only exception is a micro-shadow (`0 8px 30px rgba(0,0,0,0.08)`) on QR code wrappers in back pages. This no-shadow discipline creates a flat, print-like quality that reinforces the book metaphor.
 
 ## 7. Do's and Don'ts
 
 ### Do
-- Use Ink Green (`#14532D`) as the only accent color — no exceptions
+- Use Emerald Green (`#059669`) as the only accent color — no exceptions
 - Maintain 1.8 line-height for all body text
-- Use 3px Ink Green top borders for section headings
+- Use 3px Emerald Green top borders for section headings
 - Use Inter font for all numbers, Latin text, and section numbering
 - Use weight 900 only for cover titles — weight 700 for section headings, 600 for sub-headings
 - Keep generous whitespace between sections (45px+ above h2)
@@ -216,18 +216,18 @@ What makes Ayao distinctive is its radical restraint. No shadows anywhere (one m
 ## 9. Agent Prompt Guide
 
 ### Quick Color Reference
-- Brand Accent: "Ink Green (#14532D)"
+- Brand Accent: "Emerald Green (#059669)"
 - Page Background: "Pure White (#FFFFFF)"
 - Primary Text: "Near Black (#1A1A1A)"
 - Secondary Text: "Gray (#6B6B6B)"
 - Tertiary Text: "Light Gray (#9CA3AF)"
-- Section Divider: "3px solid #14532D"
+- Section Divider: "3px solid #059669"
 - Code Background: "Warm Gray (#F5F5F0)"
-- Cover Gradient: "linear-gradient(135deg, #F5FBF5 0%, #EBF7EB 25%, #FFFFFF 100%)"
+- Cover Gradient: "linear-gradient(135deg, #F0FDFA 0%, #D1FAE5 25%, #FFFFFF 100%)"
 
 ### Example Component Prompts
-- "Create a cover page with cool green gradient background, 80px+30px ink green decoration lines top-left, title at 36pt weight 900, Ink Green badge, and vertically centered layout."
-- "Create a section heading with 3px Ink Green top border, §01 numbering in Inter bold ink green, 20pt Noto Sans SC weight 700, and optional italic English subtitle in #9CA3AF."
-- "Create a tip card with #F0FDF4 background, 4px green left border, 8px right border-radius, and auto-generated label."
-- "Create a price display with Inter font, 72px weight 800, Ink Green color, centered on white background with section divider above."
-- "Create a step component with 26px Ink Green circle number, white text, Inter font, horizontal flex layout with 12px gap."
+- "Create a cover page with cool green gradient background, 80px+30px emerald green decoration lines top-left, title at 36pt weight 900, Emerald Green badge, and vertically centered layout."
+- "Create a section heading with 3px Emerald Green top border, §01 numbering in Inter bold emerald green, 20pt Noto Sans SC weight 700, and optional italic English subtitle in #9CA3AF."
+- "Create a tip card with #ECFDF5 background, 4px green left border, 8px right border-radius, and auto-generated label."
+- "Create a price display with Inter font, 72px weight 800, Emerald Green color, centered on white background with section divider above."
+- "Create a step component with 26px Emerald Green circle number, white text, Inter font, horizontal flex layout with 12px gap."
