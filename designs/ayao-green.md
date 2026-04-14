@@ -16,7 +16,7 @@ What makes Ayao distinctive is its radical restraint. No shadows anywhere (one m
 - 3px Emerald Green section dividers as the primary structural element
 - Decorative cover lines: 80px emerald green + 30px bright mint (`#6EE7B7`) top-left corner
 - Zero shadows, zero gradients (except cover/back page cool gradient)
-- Section numbering with `#01` `#02` format in Inter font, Emerald Green color
+- Section numbering with `01 |` `02 |` format in Inter font, Emerald Green color
 - Print-friendly: `page-break-inside: avoid` on all card components
 
 ## 2. Color Palette & Roles
@@ -60,7 +60,7 @@ What makes Ayao distinctive is its radical restraint. No shadows anywhere (one m
 |------|------|------|--------|-------------|----------------|-------|
 | Cover Title | Noto Sans SC | 36pt | 900 (Black) | 1.15 | -1px | Maximum impact, book-title density |
 | Section Heading (h2) | Noto Sans SC | 20pt | 700 | default | normal | 3px Emerald Green top border |
-| Section Number | Inter | 18pt | 700 | default | normal | `#01` format, Emerald Green color |
+| Section Number | Inter | 18pt | 700 | default | normal | `01 |` format, Emerald Green color |
 | English Subtitle | Inter | 10pt | 400 italic | default | normal | Color: `#9CA3AF` |
 | Section Intro | Noto Sans SC | 11.5pt | 300 | default | normal | Color: `#6B6B6B` |
 | Sub-heading (h3) | Noto Sans SC | 13pt | 600 | default | normal | Optional English annotation at 9.5pt |
@@ -78,7 +78,7 @@ What makes Ayao distinctive is its radical restraint. No shadows anywhere (one m
 - **Weight 900 only for cover titles**: The heaviest weight in the system creates a singular moment of maximum density. All other headings use 600-700.
 - **1.8 body line-height is non-negotiable**: This generous spacing is the core of the book-grade reading experience. Do not compress it.
 - **Inter for all numbers and Latin**: Even within Chinese text, numbers and Latin characters should render in Inter for optical consistency.
-- **Section numbering in Inter**: The `#01` format uses Inter bold in Emerald Green — creating a typographic anchor that ties structure to brand.
+- **Section numbering in Inter**: The `01 |` format uses Inter bold in Emerald Green — creating a typographic anchor that ties structure to brand.
 
 ## 4. Component Stylings
 
@@ -227,7 +227,7 @@ What makes Ayao distinctive is its radical restraint. No shadows anywhere (one m
 
 ### Example Component Prompts
 - "Create a cover page with cool green gradient background, 80px+30px emerald green decoration lines top-left, title at 36pt weight 900, Emerald Green badge, and vertically centered layout."
-- "Create a section heading with 3px Emerald Green top border, #01 numbering in Inter bold emerald green, 20pt Noto Sans SC weight 700, and optional italic English subtitle in #9CA3AF."
+- "Create a section heading with 3px Emerald Green top border, 01 | numbering in Inter bold emerald green, 20pt Noto Sans SC weight 700, and optional italic English subtitle in #9CA3AF."
 - "Create a tip card with #ECFDF5 background, 4px green left border, 8px right border-radius, and auto-generated label."
 - "Create a price display with Inter font, 72px weight 800, Emerald Green color, centered on white background with section divider above."
 - "Create a step component with 26px Emerald Green circle number, white text, Inter font, horizontal flex layout with 12px gap."
