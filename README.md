@@ -90,7 +90,7 @@ git clone https://github.com/ayaoplus/ikiw.git ~/.claude/skills/ikiw
 
 > 帮我在 ~/Documents/my-wiki 建一个 ikiw 知识库，主要存创业、增长、AI 相关的文章
 
-agent 会通过对话了解你的文章类型和关注点，自动生成 `SCHEMA.md`（包含定制化的摘要 prompt、wiki prompt、查询规则）。
+agent 会通过对话了解你的文章类型和关注点，自动生成 `SCHEMA.md`（包含定制化的摘要 prompt、wiki prompt、查询规则），同时把这个库注册到 `~/.ikiw/registry.json`——后续所有命令都能按名引用（见下文"多知识库"）。
 
 ### 3. 投喂文章并生成摘要
 
@@ -153,14 +153,32 @@ ikiw/
 
 | 命令 | 自然语言触发 | 说明 |
 |------|--------------|------|
-| `ikiw init <path>` | "帮我建一个知识库"、"初始化一个 wiki" | 通过对话生成 SCHEMA.md |
+| `ikiw init <path> [--name]` | "帮我建一个知识库"、"初始化一个 wiki" | 通过对话生成 SCHEMA.md 并注册 |
 | `ikiw summary` | "生成摘要"、"处理一下新文章" | 批量/单篇生成摘要 |
 | `ikiw query "问题"` | "查知识库"、"搜一下…"、"知识库里有没有…" | 读摘要索引 → 定位文章 → 读原文 → 综合回答 |
 | `ikiw wiki "主题"` | "建个 wiki 页面"、"把 X 主题整理成 wiki" | 将主题知识综合为结构化页面 |
 | `ikiw ingest` | "处理新文章"、"入库" | 生成摘要 + 检查 wiki 更新 |
 | `ikiw setup-summary` | "调整一下摘要规则" | 摘要助手，通过对话定义摘要 prompt |
+| `ikiw stale` | "哪些 wiki 过期了"、"看看要不要重建" | 按 frontmatter 扫出可能过期的派生产物 |
+| `ikiw rebuild <topic\|person>` | "重建 X 的 wiki"、"把 naval 的 distill 重新蒸馏" | 按当前 SCHEMA 与 raw/ 重建产物 |
+| `ikiw list` / `use` / `where` | "切到 tech 库"、"当前是哪个库" | 多知识库管理 |
+
+所有内容命令都支持 `--lib <name>` 指定库；`ikiw query --all` 可跨全部已注册库查询。
 
 > agent 会根据上下文自动判断意图，不必死记命令。命令形式更适合写脚本或精确控制。
+
+---
+
+## 多知识库
+
+一个 ikiw 实例可管理多个知识库。通过全局注册表 **`~/.ikiw/registry.json`** 寻址，跨 agent 平台共享。
+
+- `ikiw init <path> --name tech` 初始化并注册；首个库自动成为默认
+- `ikiw list` 看全部库，`ikiw use tech` 切默认，`ikiw where` 看当前
+- 任一命令省略 `--lib` 时，按"显式参数 > cwd 所在库 > 注册表 default"的顺序自动解析目标库
+- `ikiw query "X" --all` 跨库综合回答，结论标注来源库，跨库矛盾显式对比
+
+详细规范见 [SKILL.md 的"多知识库"段](SKILL.md#多知识库)。
 
 ---
 

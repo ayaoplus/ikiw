@@ -15,18 +15,24 @@ my-wiki/
 ## 核心命令
 
 ```
-ikiw init <path>              初始化知识库，通过对话生成 SCHEMA.md
-ikiw summary                  批量生成摘要（检测未处理文章）
-ikiw summary <filename>       为指定文章生成摘要
-ikiw query "问题"              查询知识库
-ikiw wiki "主题"               生成 wiki 页面
-ikiw ingest                   处理新文章（生成摘要、检查 wiki 更新）
-ikiw setup-summary            摘要助手，通过对话定义摘要 prompt
-ikiw stale                    扫描 wiki/ 和 distill/，列出可能过期的派生产物
-ikiw rebuild <topic|person>   重建指定 wiki 或 distill（旧版本移到 .backup/）
+# 库管理
+ikiw init <path> [--name <alias>]   初始化知识库并自动注册（alias 未指定时用目录名）
+ikiw list                            列出所有已注册知识库
+ikiw use <name>                      切换默认知识库
+ikiw where                           显示当前默认知识库
+
+# 内容操作（全部支持 --lib <name> 指定库；省略时按默认库解析规则）
+ikiw summary [--lib <name>]                 批量生成摘要（检测未处理文章）
+ikiw summary <filename> [--lib <name>]      为指定文章生成摘要
+ikiw query "问题" [--lib <name> | --all]     查询（单库或跨全部已注册库）
+ikiw wiki "主题" [--lib <name>]              生成 wiki 页面
+ikiw ingest [--lib <name>]                   处理新文章（生成摘要、检查 wiki 更新）
+ikiw setup-summary [--lib <name>]            通过对话定义摘要 prompt
+ikiw stale [--lib <name>]                    列出可能过期的派生产物
+ikiw rebuild <topic|person> [--lib <name>]   重建指定 wiki 或 distill（直接覆盖旧文件）
 ```
 
-也支持自然语言触发："查知识库"、"搜一下"、"帮我生成摘要"、"建个 wiki 页面"、"哪些 wiki 过期了"、"重建 xx 主题"等。
+也支持自然语言触发："查知识库"、"搜一下"、"帮我生成摘要"、"建个 wiki 页面"、"哪些 wiki 过期了"、"重建 xx 主题"、"在 A 库和 B 库里都查下"、"切到 xx 库"等。
 
 ## 核心能力
 
@@ -61,7 +67,7 @@ wiki/ 和 distill/ 里的每个文件都是 raw/ 的派生缓存。规范见 SCH
 
 1. **生成时**：每个 wiki / distill 文件必须写入 YAML frontmatter，登记 `type / topic|person / generated_at / sources[]`，wiki 额外记 `schema_prompt_hash`
 2. **过期判定**：`ikiw stale` 读各文件的 frontmatter 与当前 raw/ 状态比对——sources 文件 mtime 变动 / 已删除 / wiki 的 schema_prompt_hash 变了 → 标为 stale
-3. **重建**：`ikiw rebuild <topic|person>` 把旧文件移到 `wiki/.backup/` 或 `distill/.backup/`（保留一份历史），按当前 SCHEMA 与 raw/ 重新生成
+3. **重建**：`ikiw rebuild <topic|person>` 按当前 SCHEMA 与 raw/ 直接覆盖旧文件（不保留备份，如需保留由用户自行 git 管理）
 
 过期判定是显式的——只追踪 frontmatter 中登记过的 sources。raw/ 里新增的文章不会让已有 wiki 自动标为 stale；`ikiw ingest` 会给出"可能需要重建"提示，由用户决定要不要重建。
 
@@ -102,8 +108,60 @@ agent 读取 SKILL.md 后，扫描 `plugins/` 目录加载可用插件。
 
 ## 多知识库
 
-一个 ikiw 实例可管理多个知识库，每个有自己的 SCHEMA.md。
-查询时指定知识库，或让 agent 根据问题自动判断。
+一个 ikiw 实例可管理多个知识库，每个有自己的 SCHEMA.md。通过全局注册表统一寻址，支持单库操作、切换默认库、跨库查询。
+
+### 注册表位置与格式
+
+注册表文件路径：**`~/.ikiw/registry.json`**（跨 agent 平台共享，Claude Code / Codex / OpenCode 都读同一份）。
+
+```json
+{
+  "default": "creator",
+  "libraries": {
+    "creator": {
+      "path": "/Users/erik/wiki/creator",
+      "description": "创业 · 增长 · AI",
+      "created_at": "2026-04-15T10:30:00"
+    },
+    "tech": {
+      "path": "/Users/erik/wiki/tech",
+      "description": "工程深度",
+      "created_at": "2026-04-10T09:00:00"
+    }
+  }
+}
+```
+
+- `ikiw init <path> [--name]` 自动 upsert 到 `libraries`；首个库自动设为 `default`
+- 注册表不存在时按需创建（首次 `init` 或 `list`）
+- 用户可手动编辑 `registry.json`（如迁移路径、改描述）
+
+### 默认库解析优先级
+
+agent 执行任何内容命令时，按以下顺序确定目标库：
+
+1. 命令显式带 `--lib <name>` → 用指定库
+2. 当前工作目录（cwd）在某个注册库的 `path` 下（含子目录）→ 用该库
+3. registry 中的 `default` 字段指向的库 → 用默认库
+4. 以上都未命中 → 提示用户"当前无默认库，请先 `ikiw init` 或 `ikiw use <name>`"
+
+### 跨库查询（`--all`）
+
+`ikiw query "问题" --all` 时：
+
+1. 读 registry 中所有 `libraries` 的 `summaries.md`
+2. 从所有摘要中综合判断相关文章
+3. 读各库原文，综合回答
+4. 每条结论明确标注来源库：`[来自 creator]` / `[来自 tech]`
+5. 如有跨库矛盾观点，显式对比
+
+跨库查询只做只读汇总，**不**把产出 wiki / distill 写入任何库——写入必须明确指定单库。
+
+### 命名规则
+
+- `name` 用 kebab-case 小写英文（`creator` / `tech-notes` / `reading-list`）
+- 不允许重名；`ikiw init --name` 遇到已有 name 时报错并让用户换名或 `ikiw use` 切换
+- `ikiw list` 输出格式：`<name>  <path>  <描述>  (default)`
 
 ## 规模边界
 
