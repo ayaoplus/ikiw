@@ -58,7 +58,7 @@ ikiw map "内容或文件路径" --design all                                   
 - `templates/structure-map-portrait.md` — 竖版工作流 + 画布契约 + 组件映射 + 完整性自查
 - `templates/structure-map-landscape.md` — 横版 2 列布局规范
 - `templates/structure-map-components.md` — 10 个组件的 HTML 骨架 + CSS 类名 + 字段约束
-- `screenshot-export` 插件 — 用于导出为 PNG / PDF
+- `screenshot-export` 插件 — 用于导出为 PNG / PDF（**首次使用前需先安装 Playwright**，见 `plugins/screenshot-export.md` 顶部）
 
 ## 执行流程
 

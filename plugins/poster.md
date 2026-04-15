@@ -42,7 +42,7 @@ ikiw poster "内容或文件路径" --design all                          用所
 - `designs/` — 视觉样式库（design-md 文件）
 - `templates/poster-portrait.md` — 竖版海报规范（画布契约 + HTML 骨架 + 自查清单）
 - `templates/poster-landscape.md` — 横版海报规范（PPT/banner 形态）
-- `screenshot-export` 插件 — 用于导出为 PNG / PDF
+- `screenshot-export` 插件 — 用于导出为 PNG / PDF（**首次使用前需先安装 Playwright**，见 `plugins/screenshot-export.md` 顶部）
 
 ## 执行流程
 

@@ -2,6 +2,16 @@
 
 > 将 HTML 页面导出为 PNG 长图或 PDF，支持高清输出。
 
+## 首次使用：安装 Playwright（必需）
+
+ikiw 核心是纯 prompt，但图片导出功能依赖 Node.js 浏览器自动化。首次触发任何图片生成（视觉卡片、海报、结构图）前，agent 必须提醒用户执行：
+
+```bash
+cd <ikiw skill 目录> && npm init -y && npm i playwright && npx playwright install chromium
+```
+
+未安装时 agent 应先询问用户是否授权执行安装，再继续生成；用户拒绝安装时降级为输出 HTML 文件（见下方"降级策略"）。
+
 ## 命令
 
 ```

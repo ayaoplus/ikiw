@@ -64,6 +64,8 @@
 - **插件式扩展** — 核心精简，能力通过插件动态增长
 - **零基础设施** — 万篇以内 `summaries.md` 一次性读完，无需向量库
 
+> **依赖分层**：核心能力（init / summary / query / wiki / ingest / distill / stale）**纯 prompt 零依赖**；视觉输出能力（screenshot-export / visual-card / poster / structure-map）在首次使用时需要 Node.js 18+ 和 Playwright——agent 会在触发时提示用户安装，不提前强制。
+
 ---
 
 ## 快速开始
