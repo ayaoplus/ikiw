@@ -146,9 +146,22 @@ ikiw distill use "人名" --cite                    激活并在回答末尾附 
 
 ### Phase 3: Skill 构建
 
-将提炼结果组装为标准 Skill 文件，包含以下组件：
+将提炼结果组装为标准 Skill 文件。**文件顶部必须包含 YAML frontmatter**（格式见 SCHEMA.template.md 的"派生产物生命周期 · distill 文件 frontmatter 格式"段），登记本次蒸馏用到的本地素材路径与 mtime，以及联网来源 URL 和抓取时间——供 `ikiw stale` 检测过期用。
 
 ```markdown
+---
+type: distill
+person: {{人名}}
+generated_at: {{ISO 8601 时间戳}}
+sources:
+  local:
+    - path: raw/xxx.md
+      mtime: {{ISO 8601 时间戳}}
+  web:
+    - url: https://...
+      fetched_at: {{ISO 8601 时间戳}}
+---
+
 # [人名] 的思维框架
 
 > 50 字第一人称自我介绍，用此人的真实语感
@@ -218,7 +231,7 @@ ikiw distill use "人名" --cite                    激活并在回答末尾附 
 - **活人**：标注信息时效，建议定期 `--update`
 - **冷门人物**：可用信息 <10 条时，心智模型减至 2-3 个，扩大诚实边界篇幅
 - **主题模式**（`--topic`）：不蒸馏单人，提取领域共识框架 + 各家流派分歧
-- **增量更新**（`--update`）：只采集最新对话 + 最新决策 + 时间线，增量更新而非全量重写
+- **增量更新**（`--update`）：只采集最新对话 + 最新决策 + 时间线，增量更新而非全量重写；更新后 frontmatter 的 `generated_at` 和 `sources` 要同步刷新
 
 ## 品味守则
 

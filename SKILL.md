@@ -22,9 +22,11 @@ ikiw query "问题"              查询知识库
 ikiw wiki "主题"               生成 wiki 页面
 ikiw ingest                   处理新文章（生成摘要、检查 wiki 更新）
 ikiw setup-summary            摘要助手，通过对话定义摘要 prompt
+ikiw stale                    扫描 wiki/ 和 distill/，列出可能过期的派生产物
+ikiw rebuild <topic|person>   重建指定 wiki 或 distill（旧版本移到 .backup/）
 ```
 
-也支持自然语言触发："查知识库"、"搜一下"、"帮我生成摘要"、"建个 wiki 页面"等。
+也支持自然语言触发："查知识库"、"搜一下"、"帮我生成摘要"、"建个 wiki 页面"、"哪些 wiki 过期了"、"重建 xx 主题"等。
 
 ## 核心能力
 
@@ -50,6 +52,18 @@ Wiki 是缓存，不是权威——可以过期、可以重建。
 ### 新文章入库
 
 检测 raw/ 中未出现在 summaries.md 里的文章，生成摘要，检查 wiki 是否需要更新。
+
+ingest 完成后自动扫一次 wiki/ 和 distill/ 的 frontmatter，提示"可能需要重建"的派生产物——不自动重建，由用户决策。
+
+### 派生产物生命周期
+
+wiki/ 和 distill/ 里的每个文件都是 raw/ 的派生缓存。规范见 SCHEMA.template.md 的"派生产物生命周期"段：
+
+1. **生成时**：每个 wiki / distill 文件必须写入 YAML frontmatter，登记 `type / topic|person / generated_at / sources[]`，wiki 额外记 `schema_prompt_hash`
+2. **过期判定**：`ikiw stale` 读各文件的 frontmatter 与当前 raw/ 状态比对——sources 文件 mtime 变动 / 已删除 / wiki 的 schema_prompt_hash 变了 → 标为 stale
+3. **重建**：`ikiw rebuild <topic|person>` 把旧文件移到 `wiki/.backup/` 或 `distill/.backup/`（保留一份历史），按当前 SCHEMA 与 raw/ 重新生成
+
+过期判定是显式的——只追踪 frontmatter 中登记过的 sources。raw/ 里新增的文章不会让已有 wiki 自动标为 stale；`ikiw ingest` 会给出"可能需要重建"提示，由用户决定要不要重建。
 
 ## 插件系统
 

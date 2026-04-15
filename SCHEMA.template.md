@@ -67,6 +67,55 @@
 
 > 以上是默认 prompt，用户可自定义 wiki 页面的结构和风格。
 
+## 派生产物生命周期（强制 frontmatter）
+
+wiki/ 和 distill/ 里的每个文件都是 raw/ 的派生缓存。为了能自动识别过期、支持重建，**每个派生文件必须包含 YAML frontmatter**。
+
+### wiki 文件 frontmatter 格式
+
+```yaml
+---
+type: wiki
+topic: {{主题名}}
+generated_at: 2026-04-15T10:30:00
+schema_prompt_hash: {{SCHEMA.md 中 wiki prompt 片段的前 4 字符哈希，如 a3f9}}
+sources:
+  - path: raw/article-1.md
+    mtime: 2026-04-01T12:00:00
+  - path: raw/article-2.md
+    mtime: 2026-04-10T09:15:00
+---
+```
+
+### distill 文件 frontmatter 格式
+
+```yaml
+---
+type: distill
+person: {{人名}}
+generated_at: 2026-04-15T10:30:00
+sources:
+  local:
+    - path: raw/naval-almanack.md
+      mtime: 2026-03-20T08:00:00
+  web:
+    - url: https://nav.al/rich
+      fetched_at: 2026-04-15T10:25:00
+---
+```
+
+### 过期判定（三条任一命中即标为 stale）
+
+1. 任一 `sources[].path` 在 raw/ 中的 mtime > 该 frontmatter 记录的 mtime
+2. 任一 `sources[].path` 已从 raw/ 删除
+3. wiki 文件的 `schema_prompt_hash` ≠ 当前 SCHEMA.md 中对应 prompt 的哈希
+
+### 不做的事
+
+- **不**自动重建过期产物——由 `ikiw stale` 列出候选，用户决策
+- **不**追踪未在 sources 中登记的 raw/ 新增文件——sources 是显式依赖，新增文章的"隐式可能影响"由 `ikiw ingest` 完成后提示
+- **不**给 distill 的 web 来源做过期判定（URL 内容变化无法感知），仅作为溯源信息
+
 ## 查询流程
 
 1. 读取 summaries.md
