@@ -76,13 +76,19 @@
 
 > 帮我把 https://github.com/ayaoplus/ikiw 这个 skill 安装上
 
-agent 会自动 clone 仓库到 skill 目录并加载（Claude Code 一般是 `~/.claude/skills/`，Codex/OpenCode 同理）。
+agent 会自动 clone 仓库到对应的 skill 目录并加载。常见放法：
+
+- Codex: `~/.agents/skills/ikiw`
+- Claude Code: `~/.claude/skills/ikiw`
+- 其他 agent：放到各自约定的 skills 目录，并确保仓库根目录就是 skill directory（即根目录直接包含 `SKILL.md`）
 
 也可以手动 clone：
 
 ```bash
-git clone https://github.com/ayaoplus/ikiw.git ~/.claude/skills/ikiw
+git clone https://github.com/ayaoplus/ikiw.git ~/.agents/skills/ikiw
 ```
+
+如果只想在某个项目里给 Codex 局部启用，也可以把这个仓库放到该项目的 `.agents/skills/ikiw/` 下，或在该位置创建一个指向本仓库的 symlink。
 
 ### 2. 初始化知识库
 

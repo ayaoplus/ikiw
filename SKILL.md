@@ -1,3 +1,8 @@
+---
+name: "ikiw"
+description: "当用户想要初始化、维护、查询或扩展一个基于 Markdown 文件的个人知识库时使用。适用于创建 ikiw 知识库、生成 summaries.md 摘要索引、查询 raw/ 文章、生成 wiki 页面、处理新文章、检查 stale 派生产物，以及管理多个已注册知识库。不适用于需要数据库、向量检索或通用 RAG 基础设施的场景。"
+---
+
 # ikiw — I Keep It Wise
 
 纯 prompt 驱动的个人知识库 skill，支持插件扩展。任何能读写文件的 LLM agent 都能使用。
